@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MagazineManager"
         mc:Ignorable="d"
-        Title="MagazineManager - Login window" Height="225" Width="300" ResizeMode="NoResize">
+        Title="MagazineManager - Login window" Height="225" Width="300" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
 
     <!-- Main container for the user interface -->
     <Grid Margin="10">
