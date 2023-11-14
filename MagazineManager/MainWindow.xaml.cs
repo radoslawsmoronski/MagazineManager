@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Security;
 
 namespace MagazineManager
 {
@@ -26,9 +27,9 @@ namespace MagazineManager
 
         public MainWindow()
         {
-            InitializeComponent();
+           InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["MagazineManager.Properties.Settings.magazineConnectionString"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MagazineManager.Properties.Settings.UdemyConnectionString"].ConnectionString;
             sqlConnection = new SqlConnection(connectionString);
 
             //Connection test
@@ -49,5 +50,6 @@ namespace MagazineManager
                 }
             }
         }
+
     }
 }
