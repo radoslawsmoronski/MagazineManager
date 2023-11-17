@@ -25,11 +25,13 @@
 
         <!-- Login section elements -->
         <Label Grid.Row="0" Content="Login" FontSize="18" VerticalAlignment="Center"/>
-        <TextBox x:Name="loginTextBox" Grid.Row="0" FontSize="18" Margin="110,0,0,0" VerticalAlignment="Center" Width="150" Height="25"/>
+        <!-- TextBox component for entering login -->
+        <TextBox x:Name="loginTextBox" Grid.Row="0" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Width="150" Height="25"/>
 
         <!-- Password section elements -->
         <Label Grid.Row="1" Content="Password" FontSize="18" VerticalAlignment="Center"/>
-        <PasswordBox x:Name="passwordBox" Grid.Row="1" FontSize="18" Margin="110,0,0,0" VerticalAlignment="Center" Width="150" Height="25"/>
+        <!-- PasswordBox component for entering password -->
+        <PasswordBox x:Name="passwordBox" Grid.Row="1" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Width="150" Height="25"/>
 
         <!-- Button to submit the login -->
         <Button Grid.Row="3" FontSize="15" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" />
