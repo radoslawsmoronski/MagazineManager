@@ -1,0 +1,8 @@
+this file is not necessary file txt with data to my local db servers
+
+
+<add name="MagazineManager.Properties.Settings.magazineConnectionString"
+    connectionString="Data Source=RadoslawNB\RADO;Initial Catalog=magazine;User ID=sa;Password=123456"
+
+<add name="MagazineManager.Properties.Settings.UdemyConnectionString"
+    connectionString="Data Source=DESKTOP-E7SE9QT\SQLEXPRESS;Initial Catalog=magazine;User ID=sa;Password=123456"

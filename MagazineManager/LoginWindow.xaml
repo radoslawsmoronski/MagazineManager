@@ -1,15 +1,15 @@
-﻿<Window x:Class="MagazineManager.MainWindow"
+﻿<Window x:Class="MagazineManager.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MagazineManager"
         mc:Ignorable="d"
-        Title="MagazineManager - Login window" Height="225" Width="300" ResizeMode="NoResize"
+        Title="MagazineManager - Login window" Height="235" Width="300" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
-    <!-- Main container for the user interface -->
-    <Grid Margin="10">
+    <!-- Main container for the login window -->
+    <Grid Margin="15">
 
         <!-- Row definitions for the grid layout -->
         <Grid.RowDefinitions>
@@ -24,14 +24,12 @@
         </Grid.RowDefinitions>
 
         <!-- Login section elements -->
-        <Label Grid.Row="0" Content="Login" FontSize="18" VerticalAlignment="Center"/>
-        <!-- TextBox component for entering login -->
-        <TextBox x:Name="loginTextBox" Grid.Row="0" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Width="150" Height="25"/>
+        <Label Grid.Row="0" Content="Login" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="left"/>
+        <TextBox x:Name="loginTextBox" Grid.Row="0" FontSize="18" VerticalAlignment="center" HorizontalAlignment="Right" Width="150" Height="25"/>
 
         <!-- Password section elements -->
-        <Label Grid.Row="1" Content="Password" FontSize="18" VerticalAlignment="Center"/>
-        <!-- PasswordBox component for entering password -->
-        <PasswordBox x:Name="passwordBox" Grid.Row="1" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Width="150" Height="25"/>
+        <Label Grid.Row="1" Content="Password" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="left"/>
+        <PasswordBox x:Name="passwordBox" Grid.Row="1" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Height="25"/>
 
         <!-- Button to submit the login -->
         <Button Grid.Row="3" FontSize="15" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" />

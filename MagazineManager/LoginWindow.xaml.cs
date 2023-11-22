@@ -21,19 +21,19 @@ namespace MagazineManager
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginWindow : Window
     {
         SqlConnection sqlConnection;
 
-        public MainWindow()
+        public LoginWindow()
         {
-           InitializeComponent();
+            InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["MagazineManager.Properties.Settings.UdemyConnectionString"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MagazineManager.Properties.Settings.magazineConnectionString"].ConnectionString;
             sqlConnection = new SqlConnection(connectionString);
 
             //Connection test
-             try
+            try
             {
                 sqlConnection.Open();
             }
@@ -53,3 +53,4 @@ namespace MagazineManager
 
     }
 }
+
