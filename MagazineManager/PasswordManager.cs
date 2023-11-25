@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using BCrypt.Net;
 
 namespace MagazineManager
@@ -55,6 +56,37 @@ namespace MagazineManager
                     Marshal.ZeroFreeBSTR(valuePtr);
                 }
             }
+
+        }
+
+        public static SecureString GetSecurePassword(PasswordBox passwordBox)
+        {
+            SecureString securePassword = new SecureString();
+
+            if (passwordBox.SecurePassword != null)
+            {
+                IntPtr unmanagedPointer = IntPtr.Zero;
+
+                try
+                {
+                    unmanagedPointer = Marshal.SecureStringToGlobalAllocUnicode(passwordBox.SecurePassword);
+
+                    for (int i = 0; i < passwordBox.SecurePassword.Length; i++)
+                    {
+                        char c = (char)Marshal.PtrToStructure(unmanagedPointer + i * 2, typeof(char));
+                        securePassword.AppendChar(c);
+                    }
+                }
+                finally
+                {
+                    if (unmanagedPointer != IntPtr.Zero)
+                    {
+                        Marshal.ZeroFreeGlobalAllocUnicode(unmanagedPointer);
+                    }
+                }
+            }
+
+            return securePassword;
         }
     }
 }

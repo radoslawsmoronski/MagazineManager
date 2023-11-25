@@ -51,6 +51,15 @@ namespace MagazineManager
             }
         }
 
+        private void LoginClick(object sender, RoutedEventArgs e)
+        {
+            SecureString enteredPassword = PasswordManager.GetSecurePassword(passwordBox);
+
+            if (PasswordManager.VerifyPassword(enteredPassword, "$2a$11$bwDxMmamMnw1cu2mZYbsYOvyExuhZWRJVGtvJHz3mC2b8XckUqzYS"))
+            {
+                MessageBox.Show("ok");
+            }
+        }
     }
 }
 

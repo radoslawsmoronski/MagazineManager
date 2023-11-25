@@ -32,7 +32,7 @@
         <PasswordBox x:Name="passwordBox" Grid.Row="1" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Height="25"/>
 
         <!-- Button to submit the login -->
-        <Button Grid.Row="3" FontSize="15" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" />
+        <Button Grid.Row="3" FontSize="15" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" Click="LoginClick" />
 
     </Grid>
 </Window>
