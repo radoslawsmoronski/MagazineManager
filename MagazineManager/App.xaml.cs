@@ -14,12 +14,25 @@ namespace MagazineManager
     /// </summary>
     public partial class App : Application
     {
+        private LoginWindow loginWindow;
+        private MainWindow mainWindow;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Show(); 
+            loginWindow = new LoginWindow();
+            loginWindow.Show();
+
+            loginWindow.LoginEvent += LoginEventHandlerMethod;
         }
+
+        private void LoginEventHandlerMethod(object sender, EventArgs e)
+        {
+            loginWindow.Hide();
+            
+            mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using BCrypt.Net;
 
@@ -47,10 +48,21 @@ namespace MagazineManager
 
                 // Get password from db by login
                 string hashedPassword = DatabaseManager.GetPasswordByLogin(login);
-                if (hashedPassword == null) return false;
+                if (hashedPassword == null)
+                {
+                    MessageBox.Show("Wrong data.");
+                    return false;
+                }
 
                 // Verify the plain text entered password against the hashed password using BCry
-                return BCrypt.Net.BCrypt.Verify(plainTextEnteredPassword, hashedPassword);
+
+                if (!BCrypt.Net.BCrypt.Verify(plainTextEnteredPassword, hashedPassword))
+                {
+                    MessageBox.Show("Wrong data.");
+                    return false;
+                }
+
+                return true;
             }
             finally
             {
