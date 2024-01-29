@@ -50,6 +50,53 @@ namespace MagazineManager
             }
         }
 
+        public static string GetPasswordByLogin(string login)
+        {
+            // Using statement ensures proper resource disposal (closing the SqlConnection)
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    // Open the database connection
+                    sqlConnection.Open();
+
+                    // SQL query to retrieve the hashed password based on the provided login
+                    string query = "SELECT HashedPassword FROM Users WHERE Login = @Login;";
+
+                    // Using SqlCommand to execute the SQL query
+                    using (SqlCommand command = new SqlCommand(query, sqlConnection))
+                    {
+                        // Add a parameter to the SQL query to prevent SQL injection
+                        command.Parameters.AddWithValue("@Login", login);
+
+                        // Execute the query and retrieve a single result (the hashed password)
+                        object result = command.ExecuteScalar();
+
+                        // Check if a result was returned
+                        if (result != null)
+                        {
+                            // Convert the result to a string and return the hashed password
+                            return result.ToString();
+                        }
+                        else
+                        {
+                            // Display a message if the login does not exist and return null
+                            MessageBox.Show($"This login does not exist.");
+                            return null;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle database connection errors by displaying a message and shutting down the application
+                    MessageBox.Show($"Database connection error: {ex.Message}");
+                    Application.Current.Shutdown();
+                    return null;
+                }
+            }
+        }
+
+
 
 
 

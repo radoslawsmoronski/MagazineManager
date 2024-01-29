@@ -23,14 +23,13 @@ namespace MagazineManager
     /// </summary>
     public partial class LoginWindow : Window
     {
-        SqlConnection sqlConnection;
-
         public LoginWindow()
         {
             InitializeComponent();
 
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
+            MessageBox.Show(DatabaseManager.GetPasswordByLogin("admin"));
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
