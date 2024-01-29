@@ -35,7 +35,7 @@ namespace MagazineManager
             }
         }
 
-        public static bool VerifyPassword(SecureString enteredPassword, string hashedPassword)
+        public static bool VerifyPassword(string login, SecureString enteredPassword)
         {
             IntPtr valuePtr = IntPtr.Zero;
 
@@ -45,7 +45,11 @@ namespace MagazineManager
                 valuePtr = Marshal.SecureStringToBSTR(enteredPassword);
                 string plainTextEnteredPassword = Marshal.PtrToStringBSTR(valuePtr);
 
-                // Verify the plain text entered password against the hashed password using BCrypt
+                // Get password from db by login
+                string hashedPassword = DatabaseManager.GetPasswordByLogin(login);
+                if (hashedPassword == null) return false;
+
+                // Verify the plain text entered password against the hashed password using BCry
                 return BCrypt.Net.BCrypt.Verify(plainTextEnteredPassword, hashedPassword);
             }
             finally

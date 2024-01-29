@@ -29,14 +29,14 @@ namespace MagazineManager
 
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
-            MessageBox.Show(DatabaseManager.GetPasswordByLogin("admin"));
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
+            string login = loginTextBox.Text.ToString();
             SecureString enteredPassword = PasswordManager.GetSecurePassword(passwordBox);
 
-            if (PasswordManager.VerifyPassword(enteredPassword, "$2a$11$bwDxMmamMnw1cu2mZYbsYOvyExuhZWRJVGtvJHz3mC2b8XckUqzYS"))
+            if (PasswordManager.VerifyPassword(login, enteredPassword))
             {
                 MessageBox.Show("ok");
             }
