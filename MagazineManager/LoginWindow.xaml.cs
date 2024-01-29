@@ -29,26 +29,8 @@ namespace MagazineManager
         {
             InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["MagazineManager.Properties.Settings.magazineConnectionString"].ConnectionString;
-            sqlConnection = new SqlConnection(connectionString);
-
-            //Connection test
-            try
-            {
-                sqlConnection.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Data base error: {ex.Message}");
-                Application.Current.Shutdown();
-            }
-            finally
-            {
-                if (sqlConnection.State == System.Data.ConnectionState.Open)
-                {
-                    sqlConnection.Close();
-                }
-            }
+            DatabaseManager.CreateConnectionString();
+            DatabaseManager.ConnectionTest();
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
