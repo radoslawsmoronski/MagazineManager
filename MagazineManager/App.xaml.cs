@@ -23,9 +23,6 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            //UserManagement.GetHashedPasswordFromLogin("admin");
-            //Shutdown();
-
             loginWindow = new LoginWindow();
             loginWindow.Show();
 

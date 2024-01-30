@@ -54,7 +54,7 @@ namespace MagazineManager
 
         public static string GetSingleResultFromDB(string query, (string, dynamic)[] valuesToQuery)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (sqlConnection)
             {
                 try
                 {
@@ -88,6 +88,35 @@ namespace MagazineManager
             }
         }
 
- 
+        public static bool InsertValueInDB(string query, (string, dynamic)[] valuesToQuery)
+        {
+            using (sqlConnection)
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    using (SqlCommand command = new SqlCommand(query, sqlConnection))
+                    {
+                        foreach (var value in valuesToQuery)
+                        {
+                            command.Parameters.AddWithValue(value.Item1, value.Item2);
+                        }
+
+                        command.ExecuteNonQuery();
+
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Database connection error: {ex.Message}");
+                    Application.Current.Shutdown();
+                    return false;
+                }
+            }
+        }
+
+
     }
 }
