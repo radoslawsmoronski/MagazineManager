@@ -23,8 +23,8 @@
                 <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="loginTextBlock" Grid.Row="0" Text="Zalogowano na konto: " />
-            <Button x:Name="logoutButton" Grid.Row="1" Content="Logout" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock x:Name="userTextBlock" Grid.Row="0" Text="Zalogowano na konto: " />
+            <Button x:Name="logoutButton" Grid.Row="1" Content="Logout" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="logoutButtonClick"/>
         </Grid>
 
     </Grid>

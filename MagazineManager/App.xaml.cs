@@ -14,8 +14,8 @@ namespace MagazineManager
     /// </summary>
     public partial class App : Application
     {
-        private LoginWindow loginWindow;
-        private MainWindow mainWindow;
+        private LoginWindow loginWindow = null;
+        private MainWindow mainWindow = null;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -23,15 +23,25 @@ namespace MagazineManager
             loginWindow = new LoginWindow();
             loginWindow.Show();
 
-            loginWindow.LoginEvent += LoginEventHandlerMethod;
+            loginWindow.LoginEvent += OnUserLoggedIn;
         }
 
-        private void LoginEventHandlerMethod(object sender, EventArgs e)
+        private void OnUserLoggedIn(object sender, EventArgs e)
         {
+            if(mainWindow == null)
+            {
+                mainWindow = new MainWindow();
+                mainWindow.LogoutEvent += OnUserLoggedOut;
+            }
+
             loginWindow.Hide();
-            
-            mainWindow = new MainWindow();
             mainWindow.Show();
+        }
+
+        private void OnUserLoggedOut(object sender, EventArgs e)
+        {
+            mainWindow.Hide();
+            loginWindow.Show();
         }
 
     }

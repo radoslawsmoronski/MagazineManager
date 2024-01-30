@@ -81,7 +81,6 @@ namespace MagazineManager
                         else
                         {
                             // Display a message if the login does not exist and return null
-                            MessageBox.Show($"This login does not exist.");
                             return null;
                         }
                     }

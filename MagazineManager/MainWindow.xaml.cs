@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,7 +23,24 @@ namespace MagazineManager
         public MainWindow()
         {
             InitializeComponent();
+            userTextBlock.Text = "Zalogowano na konto: " + User.Login;
         }
 
+        private void logoutButtonClick(object sender, RoutedEventArgs e)
+        {
+            UserLogoutEvent();
+        }
+
+        public delegate void LogoutEventHandler(object sender, EventArgs e);
+        public event LogoutEventHandler LogoutEvent;
+
+        protected virtual void UserLogoutEvent()
+        {
+            if (LogoutEvent != null && User.IsLoggedIn)
+            {
+                User.logoutUser();
+                LogoutEvent(this, EventArgs.Empty);
+            }
+        }
     }
 }

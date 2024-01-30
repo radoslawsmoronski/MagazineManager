@@ -39,17 +39,20 @@ namespace MagazineManager
             if (PasswordManager.VerifyPassword(login, enteredPassword))
             {
                 MessageBox.Show("You have successfully logged in.");
-                OnLoginEvent();
+                UserLoggedEvent(login);
+                loginTextBox.Clear();
+                passwordBox.Clear();
             }
         }
 
         public delegate void LoginEventHandler(object sender, EventArgs e);
         public event LoginEventHandler LoginEvent;
 
-        protected virtual void OnLoginEvent()
+        protected virtual void UserLoggedEvent(string login)
         {
             if (LoginEvent != null)
             {
+                User.loginUser(login);
                 LoginEvent(this, EventArgs.Empty);
             }
         }

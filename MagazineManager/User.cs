@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MagazineManager
 {
-    internal class User
+    public static class User
     {
-        public string Login { get; set; }
+        public static string Login { get; set; }
+        public static bool IsLoggedIn { get; set; }
 
-
-        public User(string login)
+        public static void loginUser(string login)
         {
+            if (login == null)
+            {
+                MessageBox.Show("User error: login equal null");
+                Application.Current.Shutdown();
+            }
+
             Login = login;
+            IsLoggedIn = true;
+
         }
 
+        public static void logoutUser()
+        {
+            Login = null;
+            IsLoggedIn = false;
+        }
     }
 }
