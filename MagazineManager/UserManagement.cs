@@ -19,5 +19,6 @@ namespace MagazineManager
 
             return DatabaseManager.GetSingleResultFromDB(query, valuesToQuery);
         }
+
     }
 }

@@ -36,7 +36,7 @@ namespace MagazineManager
             }
         }
 
-        public static bool VerifyPassword(string login, SecureString enteredPassword)
+        public static bool VerifyUserPassword(string login, SecureString enteredPassword)
         {
             IntPtr valuePtr = IntPtr.Zero;
 
@@ -50,7 +50,6 @@ namespace MagazineManager
                 string hashedPassword = UserManagement.GetHashedPasswordFromLogin(login);
                 if (hashedPassword == null)
                 {
-                    MessageBox.Show("Wrong data.");
                     return false;
                 }
 
@@ -58,7 +57,6 @@ namespace MagazineManager
 
                 if (!BCrypt.Net.BCrypt.Verify(plainTextEnteredPassword, hashedPassword))
                 {
-                    MessageBox.Show("Wrong data.");
                     return false;
                 }
 

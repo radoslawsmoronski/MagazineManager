@@ -33,12 +33,16 @@ namespace MagazineManager
             string login = loginTextBox.Text.ToString();
             SecureString enteredPassword = PasswordManager.GetSecurePassword(passwordBox);
 
-            if (PasswordManager.VerifyPassword(login, enteredPassword))
+            if (User.loginUser(login, enteredPassword))
             {
                 MessageBox.Show("You have successfully logged in.");
                 UserLoggedEvent(login);
                 loginTextBox.Clear();
                 passwordBox.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Wrong login or password.");
             }
         }
 
@@ -49,7 +53,6 @@ namespace MagazineManager
         {
             if (LoginEvent != null)
             {
-                User.loginUser(login);
                 LoginEvent(this, EventArgs.Empty);
             }
         }

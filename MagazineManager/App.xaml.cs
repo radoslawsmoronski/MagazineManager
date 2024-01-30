@@ -60,7 +60,7 @@ namespace MagazineManager
         //Method to application closing support
         private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (sender == mainWindow)
+            if (sender == mainWindow && User.IsLoggedIn)
             {
                 MessageBoxResult result = MessageBox.Show("Are you sure to close the application?", "Aplication closing..", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
