@@ -14,6 +14,9 @@ namespace MagazineManager
     /// </summary>
     public partial class App : Application
     {
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")] //Support Console
+        private static extern bool AllocConsole(); //Support Console
+
         private LoginWindow loginWindow = null;
         private MainWindow mainWindow = null;
         protected override void OnStartup(StartupEventArgs e)
@@ -23,11 +26,14 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            loginWindow = new LoginWindow();
-            loginWindow.Show();
+            AllocConsole(); //Support Console
+            Console.WriteLine("test");
 
-            loginWindow.LoginEvent += OnUserLoggedIn;
-            loginWindow.Closed += OnWindowClosed;
+            //loginWindow = new LoginWindow();
+            //loginWindow.Show();
+
+            //loginWindow.LoginEvent += OnUserLoggedIn;
+            //loginWindow.Closed += OnWindowClosed;
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
