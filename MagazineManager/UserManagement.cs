@@ -12,7 +12,12 @@ namespace MagazineManager
         {
             string query = "SELECT HashedPassword FROM Users WHERE Login = @Login;";
 
-            return DatabaseManager.GetSingleResultFromDB(query, //here);
+            var valuesToQuery = new (string, dynamic)[]
+            {
+                ("@Login", login)
+            };
+
+            return DatabaseManager.GetSingleResultFromDB(query, valuesToQuery);
         }
     }
 }

@@ -18,19 +18,19 @@ namespace MagazineManager
         private MainWindow mainWindow = null;
         protected override void OnStartup(StartupEventArgs e)
         {
-            //base.OnStartup(e);
+            base.OnStartup(e);
 
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            UserManagement.GetHashedPasswordFromLogin("admin");
-            Shutdown();
+            //UserManagement.GetHashedPasswordFromLogin("admin");
+            //Shutdown();
 
-            /*loginWindow = new LoginWindow();
+            loginWindow = new LoginWindow();
             loginWindow.Show();
 
             loginWindow.LoginEvent += OnUserLoggedIn;
-            loginWindow.Closed += OnWindowClosed;*/
+            loginWindow.Closed += OnWindowClosed;
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)

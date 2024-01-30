@@ -47,7 +47,7 @@ namespace MagazineManager
                 string plainTextEnteredPassword = Marshal.PtrToStringBSTR(valuePtr);
 
                 // Get password from db by login
-                string hashedPassword = DatabaseManager.GetPasswordByLogin(login);
+                string hashedPassword = UserManagement.GetHashedPasswordFromLogin(login);
                 if (hashedPassword == null)
                 {
                     MessageBox.Show("Wrong data.");
