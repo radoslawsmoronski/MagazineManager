@@ -26,9 +26,6 @@ namespace MagazineManager
         public LoginWindow()
         {
             InitializeComponent();
-
-            DatabaseManager.CreateConnectionString();
-            DatabaseManager.ConnectionTest();
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)

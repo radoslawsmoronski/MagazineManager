@@ -18,13 +18,19 @@ namespace MagazineManager
         private MainWindow mainWindow = null;
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            //base.OnStartup(e);
 
-            loginWindow = new LoginWindow();
+            DatabaseManager.CreateConnectionString();
+            DatabaseManager.ConnectionTest();
+
+            UserManagement.GetHashedPasswordFromLogin("admin");
+            Shutdown();
+
+            /*loginWindow = new LoginWindow();
             loginWindow.Show();
 
             loginWindow.LoginEvent += OnUserLoggedIn;
-            loginWindow.Closed += OnWindowClosed;
+            loginWindow.Closed += OnWindowClosed;*/
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
@@ -54,6 +60,7 @@ namespace MagazineManager
             }
         }
 
+        //Method to application closing support
         private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (sender == mainWindow)

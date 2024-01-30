@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+using System.Diagnostics;
+
 namespace MagazineManager
 {
     public static class DatabaseManager
@@ -46,6 +48,48 @@ namespace MagazineManager
                 if (sqlConnection.State == System.Data.ConnectionState.Open)
                 {
                     sqlConnection.Close();
+                }
+            }
+        }
+
+        public static string GetSingleResultFromDB(string query,//here params object[] args)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    using (SqlCommand command = new SqlCommand(query, sqlConnection))
+                    {
+                        //here
+                        foreach (object o in args)
+                        {
+                            command.Parameters.AddWithValue(o, o);
+                        }
+
+                        // Execute the query and retrieve a single result (the hashed password)
+                        object result = command.ExecuteScalar();
+
+                        // Check if a result was returned
+                        if (result != null)
+                        {
+                            // Convert the result to a string and return the hashed password
+                            return result.ToString();
+                        }
+                        else
+                        {
+                            // Display a message if the login does not exist and return null
+                            return null;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle database connection errors by displaying a message and shutting down the application
+                    MessageBox.Show($"Database connection error: {ex.Message}");
+                    Application.Current.Shutdown();
+                    return null;
                 }
             }
         }
