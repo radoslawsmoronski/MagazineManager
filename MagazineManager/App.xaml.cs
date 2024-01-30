@@ -24,6 +24,7 @@ namespace MagazineManager
             loginWindow.Show();
 
             loginWindow.LoginEvent += OnUserLoggedIn;
+            loginWindow.Closed += OnWindowClosed;
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace MagazineManager
             {
                 mainWindow = new MainWindow();
                 mainWindow.LogoutEvent += OnUserLoggedOut;
+                mainWindow.Closing += OnWindowClosing;
             }
 
             loginWindow.Hide();
@@ -42,6 +44,32 @@ namespace MagazineManager
         {
             mainWindow.Hide();
             loginWindow.Show();
+        }
+
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            if (sender == loginWindow) 
+            {
+                Shutdown();
+            }
+        }
+
+        private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (sender == mainWindow)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure to close the application?", "Aplication closing..", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Shutdown();
+                }
+
+            }
         }
 
     }
