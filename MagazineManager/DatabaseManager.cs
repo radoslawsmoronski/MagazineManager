@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using System.Diagnostics;
+using System.Data;
 
 namespace MagazineManager
 {
     public static class DatabaseManager
     {
 
-        private static string connectionStringContent = "MagazineManager.Properties.Settings.UdemyConnectionString"; //Content of connection string
+        private static string connectionStringContent = "MagazineManager.Properties.Settings.magazineConnectionString"; //Content of connection string
         private static string connectionString; //Connection string is create in CreateConnectionString()
         private static SqlConnection sqlConnection; //SqlConnection is create in CreateConnectionString()
 
@@ -52,7 +53,7 @@ namespace MagazineManager
             }
         }
 
-        public static string GetSingleResultFromDB(string query, (string, dynamic)[] valuesToQuery)
+        public static List<string[]> GetSqlQueryResults(string query, (string, dynamic)[] valuesToQuery)
         {
             using (sqlConnection = new SqlConnection(connectionString))
             {
@@ -62,20 +63,30 @@ namespace MagazineManager
 
                     using (SqlCommand command = new SqlCommand(query, sqlConnection))
                     {
+                        //Setting parameters
                         foreach (var value in valuesToQuery)
                         {
-                            command.Parameters.AddWithValue(value.Item1, value.Item2);
+                                command.Parameters.AddWithValue(value.Item1, value.Item2);
                         }
 
-                        object result = command.ExecuteScalar();
+                        //Getting data
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            List<string[]> results = new List<string[]>();
 
-                        if (result != null)
-                        {
-                            return result.ToString();
-                        }
-                        else
-                        {
-                            return null;
+                            while (reader.Read())
+                            {
+                                string[] row = new string[reader.FieldCount];
+
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    row[i] = reader.GetValue(i).ToString();
+                                }
+
+                                results.Add(row);
+                            }
+
+                            return results;
                         }
                     }
                 }
@@ -88,7 +99,7 @@ namespace MagazineManager
             }
         }
 
-        public static bool InsertValueInDB(string query, (string, dynamic)[] valuesToQuery)
+        public static bool ExecuteSqlStatement(string query, (string, dynamic)[] valuesToQuery)
         {
             using (sqlConnection = new SqlConnection(connectionString))
             {

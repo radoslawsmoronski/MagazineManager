@@ -27,7 +27,8 @@ namespace MagazineManager
             DatabaseManager.ConnectionTest();
 
             AllocConsole(); //Support Console
-            Console.WriteLine("test");
+
+            User.loginUserTemp("admin");
 
             //loginWindow = new LoginWindow();
             //loginWindow.Show();

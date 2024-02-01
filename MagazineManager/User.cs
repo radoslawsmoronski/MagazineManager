@@ -32,5 +32,19 @@ namespace MagazineManager
             Login = null;
             IsLoggedIn = false;
         }
+
+
+        //temp functions
+        public static void loginUserTemp(string login)
+        {
+            Login = login;
+            IsLoggedIn = true;
+        }
+        public static void logoutUserTemp()
+        {
+            Login = null;
+            IsLoggedIn = false;
+        }
+        //temp funstions
     }
 }

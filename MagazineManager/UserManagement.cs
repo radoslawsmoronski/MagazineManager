@@ -17,7 +17,9 @@ namespace MagazineManager
                 ("@Login", login)
             };
 
-            return DatabaseManager.GetSingleResultFromDB(query, valuesToQuery);
+            List<string[]> result = DatabaseManager.GetSqlQueryResults(query, valuesToQuery);
+
+            return DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
         }
 
     }
