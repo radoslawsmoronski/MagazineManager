@@ -33,7 +33,12 @@ namespace MagazineManager
 
             Console.WriteLine(UserManagement.isLoginExist("admin"));
 
-            Console.WriteLine(UserManagement.AddUser("admin2", PasswordManager.ConvertToSecureString("test2")));
+            bool[] permissions = new bool[1];
+            permissions[0] = false;
+
+            Console.WriteLine(UserManagement.AddUser("admin9", PasswordManager.ConvertToSecureString("test"),permissions));
+
+            Console.WriteLine(User.hasPermission("CanAddUsers2"));
 
             //loginWindow = new LoginWindow();
             //loginWindow.Show();

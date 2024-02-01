@@ -13,7 +13,7 @@ namespace MagazineManager
         public static string Login { get; set; }
         public static bool IsLoggedIn { get; set; }
 
-        public static bool loginUser(string login, SecureString hashedPassword)
+        public static bool login(string login, SecureString hashedPassword)
         {
             if(!PasswordManager.VerifyUserPassword(login, hashedPassword))
             {
@@ -33,7 +33,7 @@ namespace MagazineManager
             IsLoggedIn = false;
         }
 
-        public static bool SetUserLoginStatus(bool status)
+        public static bool SetLoggedStatus(bool status)
         {
             string query = "UPDATE Users SET IsOnline = @IsOnline WHERE Login = @Login";
 
@@ -48,17 +48,32 @@ namespace MagazineManager
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
 
+        public static bool hasPermission(string permission)
+        {
+            string query = $"SELECT {permission} FROM Users WHERE Login = @Login;";
+
+            var valuesToQuery = new (string, dynamic)[] //Parametres
+            {
+                ("@Login", Login)
+            };
+
+            string result = DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
+
+            if (result == "True") return true;
+
+            return false;
+        }
+
         //temp functions
         public static void loginUserTemp(string login)
         {
             Login = login;
-            SetUserLoginStatus(true);
-
+            SetLoggedStatus(true);
         }
         public static void logoutUserTemp()
         {
             Login = null;
-            SetUserLoginStatus(false);
+            SetLoggedStatus(false);
         }
         //temp funstions
     }

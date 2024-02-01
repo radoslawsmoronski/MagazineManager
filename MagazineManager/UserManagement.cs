@@ -25,18 +25,20 @@ namespace MagazineManager
             return DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
         }
 
-        public static bool AddUser(string login, SecureString password)
+        public static bool AddUser(string login, SecureString password, bool[] permissions)
         {
             if (isLoginExist(login)) return false;
 
             string HashedPassword = PasswordManager.GetHashPassword(password);
 
-            string query = "INSERT INTO Users (Login, HashedPassword) VALUES(@Login, @HashedPassword)";
+            string query = "INSERT INTO Users (Login, HashedPassword, CanAddUsers)" +
+                "VALUES(@Login, @HashedPassword,@CanAddUsers)";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {
                 ("@Login", login),
-                ("@HashedPassword", HashedPassword)
+                ("@HashedPassword", HashedPassword),
+                ("@CanAddUsers", DatabaseManager.BoolToBit(permissions[0]))
             };
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
