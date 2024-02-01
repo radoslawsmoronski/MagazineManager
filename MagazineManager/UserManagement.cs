@@ -39,10 +39,7 @@ namespace MagazineManager
                 ("@HashedPassword", HashedPassword)
             };
 
-            DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
-
-
-            return true;       
+            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
 
         public static bool isLoginExist(string login)
@@ -53,7 +50,6 @@ namespace MagazineManager
             {
                 ("@Login", login)
             };
-
 
             try
             {

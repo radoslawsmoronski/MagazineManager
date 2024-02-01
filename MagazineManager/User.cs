@@ -33,17 +33,32 @@ namespace MagazineManager
             IsLoggedIn = false;
         }
 
+        public static bool SetUserLoginStatus(bool status)
+        {
+            string query = "UPDATE Users SET IsOnline = @IsOnline WHERE Login = @Login";
+
+            var valuesToQuery = new (string, dynamic)[] //Parametres
+            {
+                ("@IsOnline", DatabaseManager.BoolToBit(status)),
+                ("@Login", Login)
+            };
+
+            IsLoggedIn = status;
+
+            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
+        }
 
         //temp functions
         public static void loginUserTemp(string login)
         {
             Login = login;
-            IsLoggedIn = true;
+            SetUserLoginStatus(true);
+
         }
         public static void logoutUserTemp()
         {
             Login = null;
-            IsLoggedIn = false;
+            SetUserLoginStatus(false);
         }
         //temp funstions
     }

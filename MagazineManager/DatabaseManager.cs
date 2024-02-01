@@ -129,6 +129,26 @@ namespace MagazineManager
             }
         }
 
+        public static int BoolToBit(bool value)
+        {
+            if (value) return 1;
+            else return 0;
+        }
 
+        public static bool BitToBool(object value)
+        {
+            if (value is string)
+            {
+                if ((string) value == "1") return true;
+                else return false;
+            }
+            else if (value is int)
+            {
+                if ((int) value == 1) return true;
+                else return false;
+            }
+
+            return false;
+        }
     }
 }
