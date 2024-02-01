@@ -13,7 +13,7 @@ namespace MagazineManager
 {
     internal class PasswordManager
     {
-        public static string HashPassword(SecureString password)
+        public static string GetHashPassword(SecureString password)
         {
             IntPtr valuePtr = IntPtr.Zero;
 
@@ -101,6 +101,18 @@ namespace MagazineManager
             }
 
             return securePassword;
+        }
+
+        public static SecureString ConvertToSecureString(string str)
+        {
+            SecureString secureString = new SecureString();
+
+            foreach (char c in str)
+            {
+                secureString.AppendChar(c);
+            }
+
+            return secureString;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -29,6 +30,10 @@ namespace MagazineManager
             AllocConsole(); //Support Console
 
             User.loginUserTemp("admin");
+
+            Console.WriteLine(UserManagement.isLoginExist("admin"));
+
+            Console.WriteLine(UserManagement.AddUser("admin2", PasswordManager.ConvertToSecureString("test2")));
 
             //loginWindow = new LoginWindow();
             //loginWindow.Show();

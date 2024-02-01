@@ -72,6 +72,7 @@ namespace MagazineManager
                         //Getting data
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
+
                             List<string[]> results = new List<string[]>();
 
                             while (reader.Read())
@@ -114,9 +115,9 @@ namespace MagazineManager
                             command.Parameters.AddWithValue(value.Item1, value.Item2);
                         }
 
-                        command.ExecuteNonQuery();
+                        if (command.ExecuteNonQuery() > 0) return true;
 
-                        return true;
+                        return false;
                     }
                 }
                 catch (Exception ex)
