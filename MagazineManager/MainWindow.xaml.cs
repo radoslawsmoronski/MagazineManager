@@ -38,7 +38,7 @@ namespace MagazineManager
         {
             if (LogoutEvent != null && User.IsLoggedIn)
             {
-                User.logoutUser();
+                User.logout();
                 LogoutEvent(this, EventArgs.Empty);
             }
         }

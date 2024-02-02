@@ -22,15 +22,15 @@ namespace MagazineManager
 
 
             Login = login;
-            IsLoggedIn = true;
+            SetLoggedStatus(true);
 
             return true;
         }
 
-        public static void logoutUser()
+        public static void logout()
         {
+            SetLoggedStatus(false);
             Login = null;
-            IsLoggedIn = false;
         }
 
         public static bool SetLoggedStatus(bool status)

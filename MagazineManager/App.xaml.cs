@@ -15,8 +15,8 @@ namespace MagazineManager
     /// </summary>
     public partial class App : Application
     {
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")] //Support Console
-        private static extern bool AllocConsole(); //Support Console
+        //[System.Runtime.InteropServices.DllImport("kernel32.dll")] //Support Console
+        //private static extern bool AllocConsole(); //Support Console
 
         private LoginWindow loginWindow = null;
         private MainWindow mainWindow = null;
@@ -27,11 +27,11 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            AllocConsole(); //Support Console
+            //AllocConsole(); //Support Console
 
-            User.loginUserTemp("admin");
+           // User.loginUserTemp("admin2");
 
-            Console.WriteLine(UserManagement.EditUser("admin2", "CanAddUsers", 0));
+            //Console.WriteLine(UserManagement.EditUser("admin2", "CanAddUsers", 0));
 
             //bool[] permissions = new bool[2];
             //permissions[0] = true;
@@ -44,11 +44,11 @@ namespace MagazineManager
             //Console.WriteLine(UserManagement.DeleteUser("admin"));
 
 
-            //loginWindow = new LoginWindow();
-            //loginWindow.Show();
+            loginWindow = new LoginWindow();
+            loginWindow.Show();
 
-            //loginWindow.LoginEvent += OnUserLoggedIn;
-            //loginWindow.Closed += OnWindowClosed;
+            loginWindow.LoginEvent += OnUserLoggedIn;
+            loginWindow.Closed += OnWindowClosed;
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
@@ -95,6 +95,13 @@ namespace MagazineManager
                 }
 
             }
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (User.IsLoggedIn) User.SetLoggedStatus(false);
+
+            base.OnExit(e);
         }
 
     }

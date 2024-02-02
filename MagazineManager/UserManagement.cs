@@ -26,8 +26,7 @@ namespace MagazineManager
 
         public static bool AddUser(string login, SecureString password, bool[] permissions)
         {
-            if (User.Login == login) return false;
-            if (!User.hasPermission("CanAddUsers") || isLoginExist(login)) return false;
+            if (User.Login == login || isLoginExist(login)) return false;
 
             string HashedPassword = PasswordManager.GetHashPassword(password);
 
@@ -47,7 +46,7 @@ namespace MagazineManager
         }
         public static bool DeleteUser(string login)
         {
-            if (!User.hasPermission("CanDeleteUsers") || !isLoginExist(login)) return false;
+            if (!isLoginExist(login)) return false;
 
             string query = "DELETE FROM Users WHERE Login = @Login;";
 
@@ -60,9 +59,7 @@ namespace MagazineManager
         }
         public static bool EditUser(string login, string editComponent, object value)
         {
-            if (!User.hasPermission("CanEditUsers")
-                || editComponent.ToLower() == "id" 
-                || !isLoginExist(login)) return false;
+            if (editComponent.ToLower() == "id" || !isLoginExist(login)) return false;
 
             string query = $"UPDATE Users SET {editComponent} = @Value WHERE Login = @Login;";
 
