@@ -41,6 +41,7 @@ namespace MagazineManager
                 User.logout();
                 LogoutEvent(this, EventArgs.Empty);
             }
+
         }
     }
 }

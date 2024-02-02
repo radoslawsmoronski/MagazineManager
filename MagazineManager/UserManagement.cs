@@ -19,7 +19,6 @@ namespace MagazineManager
                 ("@Login", login)
             };
 
-            List<string[]> result = DatabaseManager.GetSqlQueryResults(query, valuesToQuery);
 
             return DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
         }
@@ -80,16 +79,7 @@ namespace MagazineManager
                 ("@Login", login)
             };
 
-            try
-            {
-                if (int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0]) == 1) return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("UserManagement error: " + ex);
-            }
-
-            return false;
+            return (int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0])) > 0;
         }
 
     }
