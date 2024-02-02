@@ -31,13 +31,15 @@ namespace MagazineManager
 
             User.loginUserTemp("admin");
 
+            Console.WriteLine(UserManagement.EditUser("admin2", "CanAddUsers", 0));
+
             //bool[] permissions = new bool[2];
             //permissions[0] = true;
             //permissions[1] = true;
 
             //Console.WriteLine(UserManagement.AddUser("admin27", PasswordManager.ConvertToSecureString("test"), permissions));
 
-            Console.WriteLine(UserManagement.DeleteUser("admin27"));
+            //Console.WriteLine(UserManagement.DeleteUser("admin27"));
 
             //Console.WriteLine(UserManagement.DeleteUser("admin"));
 

@@ -8,7 +8,6 @@ using System.Windows;
 
 namespace MagazineManager
 {
-    //EditUser
     public static class UserManagement
     {
         public static string GetHashedPasswordFromLogin(string login)
@@ -32,15 +31,16 @@ namespace MagazineManager
 
             string HashedPassword = PasswordManager.GetHashPassword(password);
 
-            string query = "INSERT INTO Users (Login, HashedPassword, CanAddUsers, CanDeleteUsers)" +
-                "VALUES(@Login, @HashedPassword,@CanAddUsers, @CanDeleteUsers)";
+            string query = "INSERT INTO Users (Login, HashedPassword, CanAddUsers, CanDeleteUsers, CanEditUsers)" +
+                "VALUES(@Login, @HashedPassword,@CanAddUsers, @CanDeleteUsers, @CanEditUsers)";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {
                 ("@Login", login),
                 ("@HashedPassword", HashedPassword),
                 ("@CanAddUsers", DatabaseManager.BoolToBit(permissions[0])),
-                ("@CanDeleteUsers", DatabaseManager.BoolToBit(permissions[1]))
+                ("@CanDeleteUsers", DatabaseManager.BoolToBit(permissions[1])),
+                ("@CanEditUsers", DatabaseManager.BoolToBit(permissions[2]))
             };
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
@@ -58,13 +58,21 @@ namespace MagazineManager
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
-        public static bool EditUser(string editComponent, object value)
+        public static bool EditUser(string login, string editComponent, object value)
         {
-            if (!User.hasPermission("CanEditUsers") || editComponent.ToLower() == "id") return false;
+            if (!User.hasPermission("CanEditUsers")
+                || editComponent.ToLower() == "id" 
+                || !isLoginExist(login)) return false;
 
-            
+            string query = $"UPDATE Users SET {editComponent} = @Value WHERE Login = @Login;";
 
-            return true;
+            var valuesToQuery = new (string, dynamic)[] //Parametres
+            {
+                ("@Value", value.ToString()),
+                ("@Login", login)
+            };
+
+            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
         public static bool isLoginExist(string login)
         {

@@ -35,17 +35,13 @@ namespace MagazineManager
 
         public static bool SetLoggedStatus(bool status)
         {
-            string query = "UPDATE Users SET IsOnline = @IsOnline WHERE Login = @Login";
-
-            var valuesToQuery = new (string, dynamic)[] //Parametres
+            if(UserManagement.EditUser(User.Login, "IsOnline", DatabaseManager.BoolToBit(status)))
             {
-                ("@IsOnline", DatabaseManager.BoolToBit(status)),
-                ("@Login", Login)
-            };
-
-            IsLoggedIn = status;
-
-            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
+                IsLoggedIn = status;
+                return true;
+            }
+            
+           return false;
         }
 
         public static bool hasPermission(string permission)
