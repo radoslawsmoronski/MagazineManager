@@ -50,6 +50,12 @@ namespace MagazineManager
 
         public static bool hasPermission(string permission)
         {
+            if (!UserManagement.isLoginExist(Login))
+            {
+                MessageBox.Show("Your account has been deleted. Application clossing...");
+                Application.Current.Shutdown();
+            }
+
             string query = $"SELECT {permission} FROM Users WHERE Login = @Login;";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres

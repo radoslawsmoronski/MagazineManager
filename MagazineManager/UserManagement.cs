@@ -5,10 +5,10 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MagazineManager
 {
+    //EditUser
     public static class UserManagement
     {
         public static string GetHashedPasswordFromLogin(string login)
@@ -27,23 +27,45 @@ namespace MagazineManager
 
         public static bool AddUser(string login, SecureString password, bool[] permissions)
         {
-            if (isLoginExist(login)) return false;
+            if (User.Login == login) return false;
+            if (!User.hasPermission("CanAddUsers") || isLoginExist(login)) return false;
 
             string HashedPassword = PasswordManager.GetHashPassword(password);
 
-            string query = "INSERT INTO Users (Login, HashedPassword, CanAddUsers)" +
-                "VALUES(@Login, @HashedPassword,@CanAddUsers)";
+            string query = "INSERT INTO Users (Login, HashedPassword, CanAddUsers, CanDeleteUsers)" +
+                "VALUES(@Login, @HashedPassword,@CanAddUsers, @CanDeleteUsers)";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {
                 ("@Login", login),
                 ("@HashedPassword", HashedPassword),
-                ("@CanAddUsers", DatabaseManager.BoolToBit(permissions[0]))
+                ("@CanAddUsers", DatabaseManager.BoolToBit(permissions[0])),
+                ("@CanDeleteUsers", DatabaseManager.BoolToBit(permissions[1]))
             };
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
+        public static bool DeleteUser(string login)
+        {
+            if (!User.hasPermission("CanDeleteUsers") || !isLoginExist(login)) return false;
 
+            string query = "DELETE FROM Users WHERE Login = @Login;";
+
+            var valuesToQuery = new (string, dynamic)[] //Parametres
+            {
+                ("@Login", login)
+            };
+
+            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
+        }
+        public static bool EditUser(string editComponent, object value)
+        {
+            if (!User.hasPermission("CanEditUsers") || editComponent.ToLower() == "id") return false;
+
+            
+
+            return true;
+        }
         public static bool isLoginExist(string login)
         {
             string query = "SELECT count(*) FROM Users WHERE Login = @Login;";
