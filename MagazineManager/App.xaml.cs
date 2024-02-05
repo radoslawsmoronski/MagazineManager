@@ -29,34 +29,6 @@ namespace MagazineManager
 
             //AllocConsole(); //Support Console
 
-            //User.loginUserTemp("admin");
-
-            //SecureString password = PasswordManager.ConvertToSecureString("test");
-
-            bool[] permissions = new bool[3];
-            permissions[0] = true;
-            permissions[1] = true;
-            permissions[2] = true;
-
-            //UserManagement.DeleteUser("admin2");
-            //UserManagement.EditUser("Permissions", "admin2", "Name", "Trolek");
-
-            //UserManagement.AddUser("admin2", password, "Marcin", "Kowalski", "marin.kowalski@mail.net", "CTO", 1, permissions);
-            //UserManagement.EditUser("Details", "admin2", "Name", "Marcin");
-
-            //Console.WriteLine(UserManagement.EditUser("admin2", "CanAddUsers", 0));
-
-            //bool[] permissions = new bool[2];
-            //permissions[0] = true;
-            //permissions[1] = true;
-
-            //Console.WriteLine(UserManagement.AddUser("admin27", PasswordManager.ConvertToSecureString("test"), permissions));
-
-            //Console.WriteLine(UserManagement.DeleteUser("admin27"));
-
-            //Console.WriteLine(UserManagement.DeleteUser("admin"));
-
-
             loginWindow = new LoginWindow();
             loginWindow.Show();
 

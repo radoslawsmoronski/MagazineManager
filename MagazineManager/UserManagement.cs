@@ -21,7 +21,16 @@ namespace MagazineManager
             };
 
 
-            return DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
+            List<string[]> result = DatabaseManager.GetSqlQueryResults(query, valuesToQuery);
+
+            if (result.Count > 0)
+            {
+                return result[0][0];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static bool AddUser(string login, SecureString password, string name, string surname, string email,
