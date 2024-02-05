@@ -38,6 +38,8 @@ namespace MagazineManager
             permissions[1] = true;
             permissions[2] = true;
 
+            UserManagement.DeleteUser("admin2");
+
             //UserManagement.AddUser("admin2", password, "Marcin", "Kowalski", "marin.kowalski@mail.net", "CTO", 1, permissions);
 
             //Console.WriteLine(UserManagement.EditUser("admin2", "CanAddUsers", 0));

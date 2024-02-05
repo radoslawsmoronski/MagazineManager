@@ -27,7 +27,7 @@ namespace MagazineManager
         public static bool AddUser(string login, SecureString password, string name, string surname, string email,
             string position, int hierarchy, bool[] permissions)
         {
-            //if (User.Login == login || isLoginExist(login)) return false;
+            if (User.Login == login || isLoginExist(login)) return false;
 
             string hashedPassword = PasswordManager.GetHashPassword(password);
 
@@ -68,11 +68,14 @@ namespace MagazineManager
         {
             if (!isLoginExist(login)) return false;
 
-            string query = "DELETE FROM Users WHERE Login = @Login;";
+            int userId = GetUserId(login);
+
+            string query = "DELETE FROM UsersPermissions WHERE UserId = @UserId;" +
+                "DELETE FROM Users WHERE UserId = @UserId;";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {
-                ("@Login", login)
+                ("@UserId", userId)
             };
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
