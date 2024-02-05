@@ -80,11 +80,19 @@ namespace MagazineManager
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
-        public static bool EditUser(string login, string editComponent, object value)
+        public static bool EditUser(string type, string login, string editComponent, object value)
         {
-            if (editComponent.ToLower() == "id" || !isLoginExist(login)) return false;
+            if ((editComponent.ToLower() == "userid" || !isLoginExist(login))
+                && (type != "Details" || type != "Permissions")) return false;
 
-            string query = $"UPDATE Users SET {editComponent} = @Value WHERE Login = @Login;";
+
+            Dictionary<string, string> editTypeConverter = new Dictionary<string, string>
+            {
+                { "Details", "Users" },
+                { "Permissions", "UsersPermissions" }
+            };
+
+            string query = $"UPDATE {editTypeConverter[type]} SET {editComponent} = @Value WHERE Login = @Login;";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {
