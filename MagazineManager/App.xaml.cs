@@ -27,11 +27,11 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            AllocConsole(); //Support Console
+            //AllocConsole(); //Support Console
 
             //User.loginUserTemp("admin");
 
-            SecureString password = PasswordManager.ConvertToSecureString("test");
+            //SecureString password = PasswordManager.ConvertToSecureString("test");
 
             bool[] permissions = new bool[3];
             permissions[0] = true;
@@ -57,11 +57,11 @@ namespace MagazineManager
             //Console.WriteLine(UserManagement.DeleteUser("admin"));
 
 
-            //loginWindow = new LoginWindow();
-            //loginWindow.Show();
+            loginWindow = new LoginWindow();
+            loginWindow.Show();
 
-            //loginWindow.LoginEvent += OnUserLoggedIn;
-            //loginWindow.Closed += OnWindowClosed;
+            loginWindow.LoginEvent += OnUserLoggedIn;
+            loginWindow.Closed += OnWindowClosed;
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)

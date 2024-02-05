@@ -35,7 +35,7 @@ namespace MagazineManager
 
         public static bool SetLoggedStatus(bool status)
         {
-            if(UserManagement.EditUser(User.Login, "Details", "IsOnline", DatabaseManager.BoolToBit(status)))
+            if(UserManagement.EditUser("Account", User.Login, "IsOnline", DatabaseManager.BoolToBit(status)))
             {
                 IsLoggedIn = status;
                 return true;

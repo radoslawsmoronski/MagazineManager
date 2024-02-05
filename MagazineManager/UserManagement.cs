@@ -83,12 +83,12 @@ namespace MagazineManager
         public static bool EditUser(string type, string login, string editComponent, object value)
         {
             if ((editComponent.ToLower() == "userid" || !isLoginExist(login))
-                && (type != "Details" || type != "Permissions")) return false;
+                && (type != "Account" || type != "Permissions")) return false;
 
 
             Dictionary<string, string> editTypeConverter = new Dictionary<string, string>
             {
-                { "Details", "Users" },
+                { "Account", "Users" },
                 { "Permissions", "UsersPermissions" }
             };
 
@@ -124,6 +124,19 @@ namespace MagazineManager
             };
 
             return int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0]);
+        }
+
+        public static List<string[]> GetUsersBasicDetails(string login)
+        {
+            string query = "SELECT u.UserId, u.Name, u.Surname, up.Position FROM Users u" +
+                "JOIN UserPermissions up ON u.UserId = up.UserId WHERE Login = @Login;";
+
+            var valuesToQuery = new (string, dynamic)[] //Parameters
+            {
+                ("@Login", login)
+            };
+
+            return DatabaseManager.GetSqlQueryResults(query, valuesToQuery);
         }
 
     }
