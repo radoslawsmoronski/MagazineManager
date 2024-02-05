@@ -135,15 +135,12 @@ namespace MagazineManager
             return int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0]);
         }
 
-        public static List<string[]> GetUsersBasicDetails(string login)
+        public static List<string[]> GetUsersBasicDetails()
         {
             string query = "SELECT u.UserId, u.Name, u.Surname, up.Position FROM Users u" +
-                "JOIN UserPermissions up ON u.UserId = up.UserId WHERE Login = @Login;";
+                "JOIN UserPermissions up ON u.UserId = up.UserId";
 
-            var valuesToQuery = new (string, dynamic)[] //Parameters
-            {
-                ("@Login", login)
-            };
+            var valuesToQuery = new (string, dynamic)[] { };
 
             return DatabaseManager.GetSqlQueryResults(query, valuesToQuery);
         }

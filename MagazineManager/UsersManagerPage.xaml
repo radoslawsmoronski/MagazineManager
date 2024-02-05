@@ -17,9 +17,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Dodaj dowolne elementy, np. TextBlock, Image, itp. -->
-            <TextBlock Text="Nazwa:" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" x:Name="NazwaTextBlock" VerticalAlignment="Center"/>
+            <ListBox Name="pracownicyListBox">
+            </ListBox>
         </Grid>
     </Grid>
 </Page>

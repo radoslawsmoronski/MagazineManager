@@ -15,7 +15,7 @@ namespace MagazineManager
     public static class DatabaseManager
     {
 
-        private static string connectionStringContent = "MagazineManager.Properties.Settings.magazineConnectionString"; //Content of connection string
+        private static string connectionStringContent = "MagazineManager.Properties.Settings.UdemyConnectionString"; //Content of connection string
         private static string connectionString; //Connection string is create in CreateConnectionString()
         private static SqlConnection sqlConnection; //SqlConnection is create in CreateConnectionString()
 

@@ -29,11 +29,19 @@ namespace MagazineManager
 
             //AllocConsole(); //Support Console
 
-            loginWindow = new LoginWindow();
-            loginWindow.Show();
+            bool[] permissions = new bool[3];
 
-            loginWindow.LoginEvent += OnUserLoggedIn;
-            loginWindow.Closed += OnWindowClosed;
+            permissions[0] = true;
+            permissions[1] = true;
+            permissions[2] = true;
+
+            UserManagement.AddUser("admin", PasswordManager.ConvertToSecureString("test"), "Adam", "Kowalski", "adam.kowalski@mail.com", "CEO", 1, permissions);
+
+            //loginWindow = new LoginWindow();
+            //loginWindow.Show();
+
+            //loginWindow.LoginEvent += OnUserLoggedIn;
+            //loginWindow.Closed += OnWindowClosed;
 
 
         }
