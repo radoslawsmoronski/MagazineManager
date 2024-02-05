@@ -15,8 +15,8 @@ namespace MagazineManager
     /// </summary>
     public partial class App : Application
     {
-        //[System.Runtime.InteropServices.DllImport("kernel32.dll")] //Support Console
-        //private static extern bool AllocConsole(); //Support Console
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")] //Support Console
+        private static extern bool AllocConsole(); //Support Console
 
         private LoginWindow loginWindow = null;
         private MainWindow mainWindow = null;
@@ -27,9 +27,18 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            //AllocConsole(); //Support Console
+            AllocConsole(); //Support Console
 
-           // User.loginUserTemp("admin2");
+            //User.loginUserTemp("admin");
+
+            SecureString password = PasswordManager.ConvertToSecureString("test");
+
+            bool[] permissions = new bool[3];
+            permissions[0] = true;
+            permissions[1] = true;
+            permissions[2] = true;
+
+            //UserManagement.AddUser("admin2", password, "Marcin", "Kowalski", "marin.kowalski@mail.net", "CTO", 1, permissions);
 
             //Console.WriteLine(UserManagement.EditUser("admin2", "CanAddUsers", 0));
 
@@ -44,11 +53,11 @@ namespace MagazineManager
             //Console.WriteLine(UserManagement.DeleteUser("admin"));
 
 
-            loginWindow = new LoginWindow();
-            loginWindow.Show();
+            //loginWindow = new LoginWindow();
+            //loginWindow.Show();
 
-            loginWindow.LoginEvent += OnUserLoggedIn;
-            loginWindow.Closed += OnWindowClosed;
+            //loginWindow.LoginEvent += OnUserLoggedIn;
+            //loginWindow.Closed += OnWindowClosed;
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)

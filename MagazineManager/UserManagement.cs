@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -23,25 +24,45 @@ namespace MagazineManager
             return DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
         }
 
-        public static bool AddUser(string login, SecureString password, bool[] permissions)
+        public static bool AddUser(string login, SecureString password, string name, string surname, string email,
+            string position, int hierarchy, bool[] permissions)
         {
-            if (User.Login == login || isLoginExist(login)) return false;
+            //if (User.Login == login || isLoginExist(login)) return false;
 
-            string HashedPassword = PasswordManager.GetHashPassword(password);
+            string hashedPassword = PasswordManager.GetHashPassword(password);
 
-            string query = "INSERT INTO Users (Login, HashedPassword, CanAddUsers, CanDeleteUsers, CanEditUsers)" +
-                "VALUES(@Login, @HashedPassword,@CanAddUsers, @CanDeleteUsers, @CanEditUsers)";
+            string accountQuery = "INSERT INTO Users (Login, HashedPassword, Name, Surname, Email)" +
+                "VALUES(@Login, @HashedPassword, @Name, @Surname, @Email)";
 
-            var valuesToQuery = new (string, dynamic)[] //Parametres
+            var valuesToAccountQuery = new (string, dynamic)[] //Parametres
             {
                 ("@Login", login),
-                ("@HashedPassword", HashedPassword),
+                ("@HashedPassword", hashedPassword),
+                ("@Name", name),
+                ("@Surname", surname),
+                ("@Email", email)
+            };
+
+            if (!DatabaseManager.ExecuteSqlStatement(accountQuery, valuesToAccountQuery)) return false;
+
+            int userId = GetUserId(login);
+
+            string permissionsQuery = "INSERT INTO UsersPermissions" +
+                "(UserId, Position, Hierarchy, CanAddUsers, CanDeleteUsers,CanEditUsers)" +
+                "VALUES(@UserId, @Position, @Hierarchy, @CanAddUsers, @CanDeleteUsers, @CanEditUsers)";
+
+
+            var valuesToPermissionsQuery = new (string, dynamic)[] //Parametres
+            {
+                ("@UserId", userId),
+                ("@Position", position),
+                ("@Hierarchy", hierarchy),
                 ("@CanAddUsers", DatabaseManager.BoolToBit(permissions[0])),
                 ("@CanDeleteUsers", DatabaseManager.BoolToBit(permissions[1])),
                 ("@CanEditUsers", DatabaseManager.BoolToBit(permissions[2]))
             };
 
-            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
+            return DatabaseManager.ExecuteSqlStatement(permissionsQuery, valuesToPermissionsQuery);
         }
         public static bool DeleteUser(string login)
         {
@@ -80,6 +101,18 @@ namespace MagazineManager
             };
 
             return (int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0])) > 0;
+        }
+
+        public static int GetUserId(string login)
+        {
+            string query = "SELECT UserId FROM Users WHERE Login = @Login;";
+
+            var valuesToQuery = new (string, dynamic)[] //Parameters
+            {
+                ("@Login", login)
+            };
+
+            return int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0]);
         }
 
     }
