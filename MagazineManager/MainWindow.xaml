@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Grid.RowSpan="2">
-            <ListBox d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
 
         <Grid Margin="5,0,5,0" Grid.Column="1">

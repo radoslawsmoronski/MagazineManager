@@ -34,6 +34,8 @@ namespace MagazineManager
 
             loginWindow.LoginEvent += OnUserLoggedIn;
             loginWindow.Closed += OnWindowClosed;
+
+
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)

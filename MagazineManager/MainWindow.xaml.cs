@@ -20,9 +20,14 @@ namespace MagazineManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        UsersManagerPage usersMagazinePage = new UsersManagerPage();
         public MainWindow()
         {
             InitializeComponent();
+
+            usersMagazinePage = new UsersManagerPage();
+
+            MainFrame.Navigate(usersMagazinePage);
             userTextBlock.Text = "Zalogowano na konto: " + User.Login;
         }
 
