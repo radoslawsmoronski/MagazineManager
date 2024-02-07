@@ -28,7 +28,7 @@
                         </TextBlock>
                         <TextBlock Text="{Binding Position}" Grid.Column="1" Margin="2px" VerticalAlignment="Bottom" />
                         <Button Grid.Column="3" Content="Edit" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        <Button Grid.Column="4" Content="Remove" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#e08080"/>
+                        <Button Tag="{Binding Id}" Grid.Column="4" Content="Remove" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#e08080" Click="removeUserButton"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

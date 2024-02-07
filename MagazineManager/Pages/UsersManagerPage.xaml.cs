@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,18 @@ namespace MagazineManager
             InitializeComponent();
             OtherUserCollection.LoadUsersFromDatabase();
             userListBox.ItemsSource = OtherUserCollection.GetOtherUsers();
+        }
+
+        private void removeUserButton(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            int userId = Convert.ToInt32(clickedButton.Tag);
+
+            OtherUser user = OtherUserCollection.GetUserFromId(userId);
+
+            MessageBox.Show(user.Name);
+
         }
     }
 }

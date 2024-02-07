@@ -60,4 +60,14 @@ public static class OtherUserCollection
         return null;
     }
 
+    public static OtherUser GetUserFromId(int id)
+    {
+        foreach (OtherUser otherUser in otherUsers)
+        {
+            if (otherUser.Id == id) return otherUser;
+        }
+
+        return null;
+    }
+
 }
