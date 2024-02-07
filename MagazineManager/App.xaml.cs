@@ -27,7 +27,7 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            AllocConsole(); //Support Console
+            //AllocConsole(); //Support Console
 
             OtherUserCollection.LoadUsersFromDatabase();
 
@@ -35,15 +35,15 @@ namespace MagazineManager
             //List<OtherUser> otherUsers = OtherUserCollection.GetOtherUsers();
 
             ////foreach(OtherUser otherUser in otherUsers)
-            {
+            //{
                 //Console.WriteLine(otherUser.Id);
             //}
 
-            //loginWindow = new LoginWindow();
-            //loginWindow.Show();
+            loginWindow = new LoginWindow();
+            loginWindow.Show();
 
-            //loginWindow.LoginEvent += OnUserLoggedIn;
-            //loginWindow.Closed += OnWindowClosed;
+            loginWindow.LoginEvent += OnUserLoggedIn;
+            loginWindow.Closed += OnWindowClosed;
 
 
         }

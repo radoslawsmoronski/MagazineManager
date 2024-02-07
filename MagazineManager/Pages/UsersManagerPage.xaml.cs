@@ -24,6 +24,8 @@ namespace MagazineManager
         public UsersManagerPage()
         {
             InitializeComponent();
+            OtherUserCollection.LoadUsersFromDatabase();
+            userListBox.ItemsSource = OtherUserCollection.GetOtherUsers();
         }
     }
 }

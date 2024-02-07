@@ -9,6 +9,29 @@
       Title="UsersManagerPage">
 
     <Grid Background="White">
-        
+        <ListBox x:Name="userListBox" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="#e3e3e3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="15*" />
+                            <ColumnDefinition Width="60*" />
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="10*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" Source="\Images\avatar.png" Width="50" Height="50" />
+                        <TextBlock Margin="2px" Grid.Column="1" VerticalAlignment="Top">
+                                <Run Text="{Binding Name}" FontWeight="Bold"/>
+                                <Run Text="{Binding Surname}" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Position}" Grid.Column="1" Margin="2px" VerticalAlignment="Bottom" />
+                        <Button Grid.Column="3" Content="Edit" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        <Button Grid.Column="4" Content="Remove" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#e08080"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>
