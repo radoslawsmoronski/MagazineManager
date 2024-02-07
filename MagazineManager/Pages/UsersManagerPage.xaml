@@ -9,16 +9,6 @@
       Title="UsersManagerPage">
 
     <Grid Background="White">
-        <ListBox />
-
-        <Grid x:Name="ItemLayout" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <ListBox Name="pracownicyListBox">
-            </ListBox>
-        </Grid>
+        
     </Grid>
 </Page>

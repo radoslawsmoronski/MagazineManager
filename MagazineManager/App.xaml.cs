@@ -27,15 +27,17 @@ namespace MagazineManager
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
-            //AllocConsole(); //Support Console
+            AllocConsole(); //Support Console
 
-            bool[] permissions = new bool[3];
+            OtherUserCollection.LoadUsersFromDatabase();
 
-            permissions[0] = true;
-            permissions[1] = true;
-            permissions[2] = true;
 
-            UserManagement.AddUser("admin", PasswordManager.ConvertToSecureString("test"), "Adam", "Kowalski", "adam.kowalski@mail.com", "CEO", 1, permissions);
+            //List<OtherUser> otherUsers = OtherUserCollection.GetOtherUsers();
+
+            ////foreach(OtherUser otherUser in otherUsers)
+            {
+                //Console.WriteLine(otherUser.Id);
+            //}
 
             //loginWindow = new LoginWindow();
             //loginWindow.Show();

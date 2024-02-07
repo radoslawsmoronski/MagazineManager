@@ -15,7 +15,7 @@ namespace MagazineManager
     public static class DatabaseManager
     {
 
-        private static string connectionStringContent = "MagazineManager.Properties.Settings.UdemyConnectionString"; //Content of connection string
+        private static string connectionStringContent = "MagazineManager.Properties.Settings.magazineConnectionString"; //Content of connection string
         private static string connectionString; //Connection string is create in CreateConnectionString()
         private static SqlConnection sqlConnection; //SqlConnection is create in CreateConnectionString()
 
@@ -53,7 +53,7 @@ namespace MagazineManager
             }
         }
 
-        public static List<string[]> GetSqlQueryResults(string query, (string, dynamic)[] valuesToQuery)
+        public static List<string[]> GetSqlQueryResults(string query, (string, dynamic)[] valuesToQuery = null)
         {
             using (sqlConnection = new SqlConnection(connectionString))
             {
@@ -64,9 +64,12 @@ namespace MagazineManager
                     using (SqlCommand command = new SqlCommand(query, sqlConnection))
                     {
                         //Setting parameters
-                        foreach (var value in valuesToQuery)
+                        if (valuesToQuery != null)
                         {
+                            foreach (var value in valuesToQuery)
+                            {
                                 command.Parameters.AddWithValue(value.Item1, value.Item2);
+                            }
                         }
 
                         //Getting data
