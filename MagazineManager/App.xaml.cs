@@ -58,6 +58,8 @@ namespace MagazineManager
             }
 
             loginWindow.Hide();
+
+            mainWindow.refreshData();
             mainWindow.Show();
         }
 

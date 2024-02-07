@@ -20,15 +20,20 @@ namespace MagazineManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        UsersManagerPage usersMagazinePage = new UsersManagerPage();
+        MagazinePage magazinePage = new MagazinePage();
+        SettingsPage settingsPage = new SettingsPage();
+
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(magazinePage);
+        }
 
-            usersMagazinePage = new UsersManagerPage();
+        public void refreshData()
+        {
+            OtherUser user = OtherUserCollection.GetUserFromLogin(User.Login);
 
-            MainFrame.Navigate(usersMagazinePage);
-            userTextBlock.Text = "Zalogowano na konto: " + User.Login;
+            userTextBlock.Text = $"{user.Name} {user.Surname}\n{user.Position}";
         }
 
         private void logoutButtonClick(object sender, RoutedEventArgs e)
@@ -48,5 +53,17 @@ namespace MagazineManager
             }
 
         }
+        private void changeMainPageClick(object sender, RoutedEventArgs e)
+        {
+            if(sender == magazineButton)
+            {
+                MainFrame.Navigate(magazinePage);
+            }
+            else if(sender == settingsButton)
+            {
+                MainFrame.Navigate(settingsPage);
+            }
+        }
+
     }
 }

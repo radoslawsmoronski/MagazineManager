@@ -25,7 +25,8 @@ public static class OtherUserCollection
          "SELECT u.UserId, u.Login, u.Name, u.Surname, u.Email," +
          " up.Position, up.Hierarchy, up.CanAddUsers, up.CanDeleteUsers, up.CanEditUsers" +
          " FROM Users u" +
-         " JOIN UsersPermissions up ON u.UserId = up.UserId;";
+         " JOIN UsersPermissions up ON u.UserId = up.UserId" +
+         " ORDER BY up.Hierarchy, u.Name";
 
         List<string[]> result = DatabaseManager.GetSqlQueryResults(query);
 
@@ -47,6 +48,16 @@ public static class OtherUserCollection
 
             otherUsers.Add(otherUser);
         }
+    }
+
+    public static OtherUser GetUserFromLogin(string login)
+    {
+        foreach(OtherUser otherUser in otherUsers)
+        {
+            if (otherUser.Login == login) return otherUser;
+        }
+
+        return null;
     }
 
 }

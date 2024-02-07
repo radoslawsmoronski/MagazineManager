@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Magazine Manager" Height="720" Width="1280"
         WindowState="Maximized">
-    <Grid Margin="15">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="85*" />
             <ColumnDefinition Width="15*" />
@@ -17,15 +17,22 @@
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
 
-        <Grid Margin="5,0,5,0" Grid.Column="1">
+        <Grid Background="#e3e3e3" Grid.Column="1">
+            <Grid Margin="15">
             <Grid.RowDefinitions>
-                <RowDefinition Height="95*" />
+                <RowDefinition Height="79*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="5*" />
                 <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="userTextBlock" Grid.Row="0" Text="Zalogowano na konto: " />
-            <Button x:Name="logoutButton" Grid.Row="1" Content="Logout" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="logoutButtonClick"/>
+            <Button x:Name="magazineButton" Grid.Row="1" Content="Magazine" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="changeMainPageClick"/>
+            <Button x:Name="settingsButton" Grid.Row="3" Content="Settings" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="changeMainPageClick"/>
+            <Button x:Name="logoutButton" Grid.Row="6" Content="Logout" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="logoutButtonClick"/>
         </Grid>
-
+        </Grid>
     </Grid>
 </Window>
