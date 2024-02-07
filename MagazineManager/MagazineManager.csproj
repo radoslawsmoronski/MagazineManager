@@ -87,21 +87,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DatabaseManager.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
+    <Compile Include="Utilities\DatabaseManager.cs" />
+    <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OtherUser.cs" />
-    <Compile Include="OtherUserCollection.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Users\OtherUser.cs" />
+    <Compile Include="Users\OtherUserCollection.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement.cs" />
-    <Compile Include="UsersManagerPage.xaml.cs">
+    <Compile Include="Users\UserManagement.cs" />
+    <Compile Include="Pages\UsersManagerPage.xaml.cs">
       <DependentUpon>UsersManagerPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="LoginWindow.xaml">
+    <Page Include="Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,17 +114,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>magazineDataSet.xsd</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UsersManagerPage.xaml">
+    <Page Include="Pages\UsersManagerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PasswordManager.cs" />
+    <Compile Include="Utilities\PasswordManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -177,5 +177,6 @@
   <ItemGroup>
     <Resource Include="dbdata.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
