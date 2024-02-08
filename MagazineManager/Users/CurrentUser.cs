@@ -52,7 +52,9 @@ namespace MagazineManager
                 Application.Current.Shutdown();
             }
 
-            string query = $"SELECT up.{permission} FROM Users u JOIN UsersPermissions up WHERE u.Login = @Login;";
+            string query = $"SELECT up.{permission} FROM Users u " +
+                           $"JOIN UsersPermissions up ON u.UserId = up.UserId " +
+                           $"WHERE u.Login = @Login;";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {

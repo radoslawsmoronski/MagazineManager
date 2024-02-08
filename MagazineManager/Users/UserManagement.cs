@@ -75,7 +75,7 @@ namespace MagazineManager
         }
         public static bool DeleteUser(string login)
         {
-            if (!isLoginExist(login)&&CurrentUser.hasPermission("CanDeleteUsers")) return false;
+            if (!isLoginExist(login)) return false;
 
             int userId = GetUserId(login);
 

@@ -40,13 +40,15 @@ namespace MagazineManager
 
                     if (user != null)
                     {
-                        if(currentUser.Hierarchy >= user.Hierarchy)
+                        if((currentUser.Hierarchy >= user.Hierarchy)
+                            && CurrentUser.hasPermission("CanDeleteUsers"))
                         {
                             MessageBox.Show("You do not have permission to delete this user.");
                             return;
                         }
 
-                        MessageBoxResult result = MessageBox.Show($"Are you sure to remove {user.Name} {user.Surname}?", "Removing user..", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult result = MessageBox.Show($"Are you sure to remove {user.Name} {user.Surname}?",
+                            "Removing user..", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                         if (result == MessageBoxResult.No)
                         {
