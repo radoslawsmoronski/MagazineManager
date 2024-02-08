@@ -26,19 +26,43 @@ namespace MagazineManager
         {
             InitializeComponent();
             UsersCollection.LoadUsersFromDatabase();
-            userListBox.ItemsSource = UsersCollection.GetOtherUsers();
+            userListBox.ItemsSource = UsersCollection.GetUsers();
         }
 
         private void removeUserButton(object sender, RoutedEventArgs e)
         {
-            Button clickedButton = (Button)sender;
+            if (sender is Button clickedButton && clickedButton.Tag != null)
+            {
+                if (int.TryParse(clickedButton.Tag.ToString(), out int userId))
+                {
+                    User user = UsersCollection.GetUserFromId(userId);
+                    User currentUser = UsersCollection.GetUserFromLogin(CurrentUser.Login);
 
-            int userId = Convert.ToInt32(clickedButton.Tag);
+                    if (user != null)
+                    {
+                        if(currentUser.Hierarchy >= user.Hierarchy)
+                        {
+                            MessageBox.Show("You do not have permission to delete this user.");
+                            return;
+                        }
 
-            User user = UsersCollection.GetUserFromId(userId);
+                        MessageBoxResult result = MessageBox.Show($"Are you sure to remove {user.Name} {user.Surname}?", "Removing user..", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            MessageBox.Show(user.Name);
-
+                        if (result == MessageBoxResult.No)
+                        {
+                        }
+                        else
+                        {
+                            if(UserManagement.DeleteUser(user.Login))
+                            {
+                                MessageBox.Show("Użytkownik został usunięty.");
+                                userListBox.ItemsSource = null;
+                                userListBox.ItemsSource = UsersCollection.GetUsers();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

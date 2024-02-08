@@ -75,7 +75,7 @@ namespace MagazineManager
         }
         public static bool DeleteUser(string login)
         {
-            if (!isLoginExist(login)) return false;
+            if (!isLoginExist(login)&&CurrentUser.hasPermission("CanDeleteUsers")) return false;
 
             int userId = GetUserId(login);
 
@@ -87,7 +87,13 @@ namespace MagazineManager
                 ("@UserId", userId)
             };
 
-            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
+            if(DatabaseManager.ExecuteSqlStatement(query, valuesToQuery))
+            {
+                UsersCollection.RemoveUserFromCollection(userId);
+                return true;
+            }
+            
+            return false;
         }
         public static bool EditUser(string type, string login, string editComponent, object value)
         {

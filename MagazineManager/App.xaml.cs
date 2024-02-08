@@ -29,15 +29,6 @@ namespace MagazineManager
 
             //AllocConsole(); //Support Console
 
-            UsersCollection.LoadUsersFromDatabase();
-
-
-            //List<OtherUser> otherUsers = OtherUserCollection.GetOtherUsers();
-
-            ////foreach(OtherUser otherUser in otherUsers)
-            //{
-                //Console.WriteLine(otherUser.Id);
-            //}
 
             loginWindow = new LoginWindow();
             loginWindow.Show();

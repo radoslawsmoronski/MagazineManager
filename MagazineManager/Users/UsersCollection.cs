@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 public static class UsersCollection
 {
-    private static List<User> otherUsers = new List<User>();
+    private static List<User> users = new List<User>();
 
     public static void AddUser(User user)
     {
-        otherUsers.Add(user);
+        users.Add(user);
     }
 
-    public static List<User> GetOtherUsers()
+    public static List<User> GetUsers()
     {
-        return otherUsers;
+        return users;
     }
 
     public static void LoadUsersFromDatabase()
@@ -46,13 +46,13 @@ public static class UsersCollection
             User otherUser = new User(id, login, name, surname, email,
                 position, hierarchy, canAddUsers, canDeleteUsers, canEditUsers);
 
-            otherUsers.Add(otherUser);
+            users.Add(otherUser);
         }
     }
 
     public static User GetUserFromLogin(string login)
     {
-        foreach(User otherUser in otherUsers)
+        foreach(User otherUser in users)
         {
             if (otherUser.Login == login) return otherUser;
         }
@@ -62,12 +62,24 @@ public static class UsersCollection
 
     public static User GetUserFromId(int id)
     {
-        foreach (User otherUser in otherUsers)
+        foreach (User otherUser in users)
         {
             if (otherUser.Id == id) return otherUser;
         }
 
         return null;
+    }
+
+    public static bool RemoveUserFromCollection(int id)
+    {
+        User userToRemove = GetUserFromId(id);
+
+        if (userToRemove != null)
+        {
+            return users.Remove(userToRemove);
+        }
+
+        return false;
     }
 
 }
