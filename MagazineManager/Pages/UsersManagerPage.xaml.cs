@@ -90,6 +90,7 @@ namespace MagazineManager
 
             List<User> searchDirectlyUsersList = new List<User>();
             List<User> searchNotDirectlyUsersList = new List<User>();
+            List<User> searchPositionUsersList = new List<User>();
 
             foreach (User user in UsersCollection.GetUsers())
             {
@@ -97,6 +98,7 @@ namespace MagazineManager
                 bool nameSecond = (name[1] == user.Name.ToLower());
                 bool surnameFirst = (name[0] == user.Surname.ToLower());
                 bool surnameSecond = (name[1] == user.Surname.ToLower());
+                bool positionFirst = (name[0] == user.Position.ToLower());
 
                 if ((nameFirst && surnameSecond) || (surnameFirst && nameSecond))
                 {
@@ -107,11 +109,26 @@ namespace MagazineManager
                 {
                     searchNotDirectlyUsersList.Add(user);
                 }
+                else if (positionFirst)
+                { 
+                    searchPositionUsersList.Add(user);
+                }
             }
 
             userListBox.ItemsSource = null;
 
-            userListBox.ItemsSource = searchDirectlyUsersList.Any() ? searchDirectlyUsersList : searchNotDirectlyUsersList;
+            if(searchPositionUsersList.Any())
+            {
+                userListBox.ItemsSource = searchPositionUsersList;
+            }
+            else if (searchDirectlyUsersList.Any())
+            {
+                userListBox.ItemsSource = searchDirectlyUsersList;
+            }
+            else
+            {
+                userListBox.ItemsSource = searchNotDirectlyUsersList;
+            }
 
         }
     }

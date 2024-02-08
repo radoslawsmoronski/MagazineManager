@@ -40,11 +40,12 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0" Source="\Images\avatar.png" Width="50" Height="50" />
-                        <TextBlock Margin="2px" Grid.Column="1" VerticalAlignment="Top">
+                        <Grid></Grid>
+                        <TextBlock Margin="0 2 0 0" Grid.Column="1" VerticalAlignment="Top">
                                 <Run Text="{Binding Name}" FontWeight="Bold"/>
                                 <Run Text="{Binding Surname}" FontWeight="Bold"/>
                         </TextBlock>
-                        <TextBlock Text="{Binding Position}" Grid.Column="1" Margin="2px" VerticalAlignment="Bottom" />
+                        <TextBlock Text="{Binding Position}" Grid.Column="1" Margin="0 0 0 17" VerticalAlignment="Bottom" />
                         <Button Grid.Column="3" Content="Edit" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         <Button Tag="{Binding Id}" Grid.Column="4" Content="Remove" Margin="8px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#e08080" Click="removeUserButton"/>
                     </Grid>
