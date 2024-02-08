@@ -1,82 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace MagazineManager
 {
-    public static class User
+    public class User
     {
-        public static string Login { get; set; }
-        public static bool IsLoggedIn { get; set; }
+        public int Id { get; set; }
+        public string Login {  get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string Position { get; set; }
+        public int Hierarchy { get; set; }
+        public bool CanAddUsers { get; set; }
+        public bool CanDeleteUsers { get; set; }
+        public bool CanEditUsers { get; set; }
 
-        public static bool login(string login, SecureString hashedPassword)
+        public User(int id, string login, string name, string surname, string email, string position, int hierarchy, bool canAddUsers, bool canDeleteUsers, bool canEditUsers)
         {
-            if(!PasswordManager.VerifyUserPassword(login, hashedPassword))
-            {
-                return false;
-            }
-
-
+            Id = id;
             Login = login;
-            SetLoggedStatus(true);
-
-            return true;
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Position = position;
+            Hierarchy = hierarchy;
+            CanAddUsers = canAddUsers;
+            CanDeleteUsers = canDeleteUsers;
+            CanEditUsers = canEditUsers;
         }
-
-        public static void logout()
-        {
-            SetLoggedStatus(false);
-            Login = null;
-        }
-
-        public static bool SetLoggedStatus(bool status)
-        {
-            if(UserManagement.EditUser("Account", User.Login, "IsOnline", DatabaseManager.BoolToBit(status)))
-            {
-                IsLoggedIn = status;
-                return true;
-            }
-            
-           return false;
-        }
-
-        public static bool hasPermission(string permission)
-        {
-            if (!UserManagement.isLoginExist(Login))
-            {
-                MessageBox.Show("Your account has been deleted. Application clossing...");
-                Application.Current.Shutdown();
-            }
-
-            string query = $"SELECT up.{permission} FROM Users u JOIN UsersPermissions up WHERE u.Login = @Login;";
-
-            var valuesToQuery = new (string, dynamic)[] //Parametres
-            {
-                ("@Login", Login)
-            };
-
-            string result = DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0];
-
-            if (result == "True") return true;
-
-            return false;
-        }
-
-        //temp functions
-        public static void loginUserTemp(string login)
-        {
-            Login = login;
-            SetLoggedStatus(true);
-        }
-        public static void logoutUserTemp()
-        {
-            Login = null;
-            SetLoggedStatus(false);
-        }
-        //temp funstions
     }
 }

@@ -97,9 +97,9 @@
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Users\OtherUser.cs" />
-    <Compile Include="Users\OtherUserCollection.cs" />
     <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UsersCollection.cs" />
+    <Compile Include="Users\CurrentUser.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

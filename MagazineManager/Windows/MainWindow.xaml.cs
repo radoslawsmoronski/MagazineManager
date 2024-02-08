@@ -31,7 +31,7 @@ namespace MagazineManager
 
         public void refreshData()
         {
-            OtherUser user = OtherUserCollection.GetUserFromLogin(User.Login);
+            User user = UsersCollection.GetUserFromLogin(CurrentUser.Login);
 
             userTextBlock.Text = $"{user.Name} {user.Surname}\n{user.Position}";
         }
@@ -46,9 +46,9 @@ namespace MagazineManager
 
         protected virtual void UserLogoutEvent()
         {
-            if (LogoutEvent != null && User.IsLoggedIn)
+            if (LogoutEvent != null && CurrentUser.IsLoggedIn)
             {
-                User.logout();
+                CurrentUser.logout();
                 LogoutEvent(this, EventArgs.Empty);
             }
 

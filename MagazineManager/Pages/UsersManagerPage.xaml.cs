@@ -25,8 +25,8 @@ namespace MagazineManager
         public UsersManagerPage()
         {
             InitializeComponent();
-            OtherUserCollection.LoadUsersFromDatabase();
-            userListBox.ItemsSource = OtherUserCollection.GetOtherUsers();
+            UsersCollection.LoadUsersFromDatabase();
+            userListBox.ItemsSource = UsersCollection.GetOtherUsers();
         }
 
         private void removeUserButton(object sender, RoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace MagazineManager
 
             int userId = Convert.ToInt32(clickedButton.Tag);
 
-            OtherUser user = OtherUserCollection.GetUserFromId(userId);
+            User user = UsersCollection.GetUserFromId(userId);
 
             MessageBox.Show(user.Name);
 

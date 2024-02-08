@@ -29,7 +29,7 @@ namespace MagazineManager
 
             //AllocConsole(); //Support Console
 
-            OtherUserCollection.LoadUsersFromDatabase();
+            UsersCollection.LoadUsersFromDatabase();
 
 
             //List<OtherUser> otherUsers = OtherUserCollection.GetOtherUsers();
@@ -80,7 +80,7 @@ namespace MagazineManager
         //Method to application closing support
         private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (sender == mainWindow && User.IsLoggedIn)
+            if (sender == mainWindow && CurrentUser.IsLoggedIn)
             {
                 MessageBoxResult result = MessageBox.Show("Are you sure to close the application?", "Aplication closing..", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -98,7 +98,7 @@ namespace MagazineManager
 
         protected override void OnExit(ExitEventArgs e)
         {
-            if (User.IsLoggedIn) User.SetLoggedStatus(false);
+            if (CurrentUser.IsLoggedIn) CurrentUser.SetLoggedStatus(false);
 
             base.OnExit(e);
         }

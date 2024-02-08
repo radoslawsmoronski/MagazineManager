@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public static class OtherUserCollection
+public static class UsersCollection
 {
-    private static List<OtherUser> otherUsers = new List<OtherUser>();
+    private static List<User> otherUsers = new List<User>();
 
-    public static void AddUser(OtherUser user)
+    public static void AddUser(User user)
     {
         otherUsers.Add(user);
     }
 
-    public static List<OtherUser> GetOtherUsers()
+    public static List<User> GetOtherUsers()
     {
         return otherUsers;
     }
@@ -43,16 +43,16 @@ public static class OtherUserCollection
             bool canDeleteUsers = bool.Parse(userDetails[8]);
             bool canEditUsers = bool.Parse(userDetails[9]);
 
-            OtherUser otherUser = new OtherUser(id, login, name, surname, email,
+            User otherUser = new User(id, login, name, surname, email,
                 position, hierarchy, canAddUsers, canDeleteUsers, canEditUsers);
 
             otherUsers.Add(otherUser);
         }
     }
 
-    public static OtherUser GetUserFromLogin(string login)
+    public static User GetUserFromLogin(string login)
     {
-        foreach(OtherUser otherUser in otherUsers)
+        foreach(User otherUser in otherUsers)
         {
             if (otherUser.Login == login) return otherUser;
         }
@@ -60,9 +60,9 @@ public static class OtherUserCollection
         return null;
     }
 
-    public static OtherUser GetUserFromId(int id)
+    public static User GetUserFromId(int id)
     {
-        foreach (OtherUser otherUser in otherUsers)
+        foreach (User otherUser in otherUsers)
         {
             if (otherUser.Id == id) return otherUser;
         }

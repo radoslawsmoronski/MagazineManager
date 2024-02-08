@@ -33,7 +33,7 @@ namespace MagazineManager
             string login = loginTextBox.Text.ToString();
             SecureString enteredPassword = PasswordManager.GetSecurePassword(passwordBox);
 
-            if (User.login(login, enteredPassword))
+            if (CurrentUser.login(login, enteredPassword))
             {
                 MessageBox.Show("You have successfully logged in.");
                 UserLoggedEvent(login);

@@ -36,7 +36,7 @@ namespace MagazineManager
         public static bool AddUser(string login, SecureString password, string name, string surname, string email,
             string position, int hierarchy, bool[] permissions)
         {
-            if (User.Login == login || isLoginExist(login)) return false;
+            if (CurrentUser.Login == login || isLoginExist(login)) return false;
 
             string hashedPassword = PasswordManager.GetHashPassword(password);
 
