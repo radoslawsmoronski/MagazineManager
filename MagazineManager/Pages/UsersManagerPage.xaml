@@ -9,7 +9,25 @@
       Title="UsersManagerPage">
 
     <Grid Background="White">
-        <ListBox x:Name="userListBox" HorizontalContentAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="95*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="25*" />
+                <ColumnDefinition Width="57*" />
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="\Images\search-icon.png" Width="23" Height="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox x:Name="userSearchTextBox" Grid.Column="1" FontSize="18px" Margin="0 4 0 4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextChanged="userSerachTextChanged"/>
+            <Button Grid.Column="3" Content="Add user" Margin="4px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Grid>
+        
+        <ListBox Grid.Row="1" x:Name="userListBox" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="#e3e3e3">

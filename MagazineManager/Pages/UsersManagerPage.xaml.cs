@@ -66,5 +66,53 @@ namespace MagazineManager
                 }
             }
         }
+
+        private void userSerachTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string filter = userSearchTextBox.Text;
+
+            if (filter == null || filter == "")
+            {
+                userListBox.ItemsSource = null;
+                userListBox.ItemsSource = UsersCollection.GetUsers();
+
+                return;
+            }
+
+            filter = filter.ToLower();
+
+            string[] name = filter.Split(' ');
+
+            if (name.Length < 2)
+            {
+                name = new string[] { name[0], "" };
+            }
+
+            List<User> searchDirectlyUsersList = new List<User>();
+            List<User> searchNotDirectlyUsersList = new List<User>();
+
+            foreach (User user in UsersCollection.GetUsers())
+            {
+                bool nameFirst = (name[0] == user.Name.ToLower());
+                bool nameSecond = (name[1] == user.Name.ToLower());
+                bool surnameFirst = (name[0] == user.Surname.ToLower());
+                bool surnameSecond = (name[1] == user.Surname.ToLower());
+
+                if ((nameFirst && surnameSecond) || (surnameFirst && nameSecond))
+                {
+                    searchDirectlyUsersList.Add(user);
+
+                }
+                else if ((nameFirst || surnameFirst))
+                {
+                    searchNotDirectlyUsersList.Add(user);
+                }
+            }
+
+            userListBox.ItemsSource = null;
+
+            userListBox.ItemsSource = searchDirectlyUsersList.Any() ? searchDirectlyUsersList : searchNotDirectlyUsersList;
+
+        }
     }
 }
