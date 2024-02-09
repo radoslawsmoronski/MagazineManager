@@ -29,12 +29,14 @@ namespace MagazineManager
 
             //AllocConsole(); //Support Console
 
+            AddUserWindow newWindow = new AddUserWindow();
+            newWindow.Show();
 
-            loginWindow = new LoginWindow();
-            loginWindow.Show();
+            //loginWindow = new LoginWindow();
+            //loginWindow.Show();
 
-            loginWindow.LoginEvent += OnUserLoggedIn;
-            loginWindow.Closed += OnWindowClosed;
+            //loginWindow.LoginEvent += OnUserLoggedIn;
+            //loginWindow.Closed += OnWindowClosed;
 
 
         }
