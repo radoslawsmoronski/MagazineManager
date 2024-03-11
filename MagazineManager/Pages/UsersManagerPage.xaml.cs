@@ -22,6 +22,8 @@ namespace MagazineManager
     /// </summary>
     public partial class UsersManagerPage : Page
     {
+        private AddUserWindow addUserWindow = null;
+
         public UsersManagerPage()
         {
             InitializeComponent();
@@ -130,6 +132,19 @@ namespace MagazineManager
                 userListBox.ItemsSource = searchNotDirectlyUsersList;
             }
 
+        }
+
+        private void AddUserButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!CurrentUser.hasPermission("CanAddUsers"))
+            {
+                MessageBox.Show("You do not have permission to adding user!");
+                return;
+            }
+
+            addUserWindow = new AddUserWindow();
+
+            addUserWindow.Show();
         }
     }
 }

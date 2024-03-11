@@ -24,7 +24,7 @@
 
             <Image Grid.Column="0" Source="\Images\search-icon.png" Width="23" Height="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox x:Name="userSearchTextBox" Grid.Column="1" FontSize="18px" Margin="0 4 0 4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextChanged="userSerachTextChanged"/>
-            <Button Grid.Column="3" Content="Add user" Margin="4px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Grid.Column="3" Content="Add user" Margin="4px" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddUserButtonClick"/>
         </Grid>
         
         <ListBox Grid.Row="1" x:Name="userListBox" HorizontalContentAlignment="Stretch">
