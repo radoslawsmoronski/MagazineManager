@@ -31,6 +31,29 @@ namespace MagazineManager
             userListBox.ItemsSource = UsersCollection.GetUsers();
         }
 
+        private void editUserButton(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button clickedButton && clickedButton.Tag != null)
+            {
+                if (int.TryParse(clickedButton.Tag.ToString(), out int userId))
+                {
+                    User user = UsersCollection.GetUserFromId(userId);
+                    User currentUser = UsersCollection.GetUserFromLogin(CurrentUser.Login);
+
+                    if (user != null)
+                    {
+                        if ((currentUser.Hierarchy >= user.Hierarchy)
+                            && CurrentUser.hasPermission("CanDeleteUsers"))
+                        {
+                            MessageBox.Show("You do not have permission to delete this user.");
+                            return;
+                        }
+
+                        MessageBox.Show("work - " + user.Name);
+                    }
+                }
+            }
+        }
         private void removeUserButton(object sender, RoutedEventArgs e)
         {
             if (sender is Button clickedButton && clickedButton.Tag != null)
