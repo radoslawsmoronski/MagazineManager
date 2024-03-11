@@ -23,6 +23,7 @@ namespace MagazineManager
     public partial class UsersManagerPage : Page
     {
         private AddUserWindow addUserWindow = null;
+        private EditUserWindow editUserWindow = null;
 
         public UsersManagerPage()
         {
@@ -31,7 +32,7 @@ namespace MagazineManager
             userListBox.ItemsSource = UsersCollection.GetUsers();
         }
 
-        private void editUserButton(object sender, RoutedEventArgs e)
+        private void editUserButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button clickedButton && clickedButton.Tag != null)
             {
@@ -49,7 +50,9 @@ namespace MagazineManager
                             return;
                         }
 
-                        MessageBox.Show("work - " + user.Name);
+                        editUserWindow = new EditUserWindow(user);
+
+                        editUserWindow.Show();
                     }
                 }
             }

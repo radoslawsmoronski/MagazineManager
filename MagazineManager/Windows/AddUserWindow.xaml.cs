@@ -28,6 +28,13 @@ namespace MagazineManager
 
         private void addUserClick(object sender, RoutedEventArgs e)
         {
+            if (!CurrentUser.hasPermission("CanAddUsers"))
+            {
+                MessageBox.Show("You do not have permission to adding user!");
+                this.Close();
+                return;
+            }
+
             string login;
             SecureString password;
             string name;

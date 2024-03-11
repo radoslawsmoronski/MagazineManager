@@ -64,7 +64,7 @@
             </TabItem>
         </TabControl>
 
-        <Button x:Name="addUserButton" Grid.Row="2" Content="Edit user" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Button x:Name="editUserButton" Grid.Row="2" Content="Edit user" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="EditUserButton"/>
 
     </Grid>
 </Window>

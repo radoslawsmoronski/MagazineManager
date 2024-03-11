@@ -19,9 +19,48 @@ namespace MagazineManager
     /// </summary>
     public partial class EditUserWindow : Window
     {
-        public EditUserWindow()
+        User user = null;
+        public EditUserWindow(User user_)
         {
             InitializeComponent();
+
+            user = user_;
+
+            editUserLoginTextBox.Text = user.Login;
+            editUserNameTextBox.Text = user.Name; 
+            editUserSurnameTextBox.Text = user.Surname;
+            editUserEmailTextBox.Text = user.Email;
+            editUserPositionTextBox.Text = user.Position;
+            editUserHierarchyTextBox.Text = user.Hierarchy.ToString();
+            editUserAddingUsersCheckBox.IsChecked = user.CanAddUsers;
+            editUserDeleteUsersCheckBox.IsChecked = user.CanDeleteUsers;
+            editUserEditingUsersCheckBox.IsChecked = user.CanEditUsers;
+
+
+        }
+
+        private void EditUserButton(object sender, RoutedEventArgs e)
+        {
+            if (!CurrentUser.hasPermission("CanEditUsers"))
+            {
+                MessageBox.Show("You do not have permission to editing user.");
+                this.Close();
+                return;
+            }
+
+            if(editUserLoginTextBox.Text == user.Login
+            && editUserNameTextBox.Text == user.Name
+            && editUserSurnameTextBox.Text == user.Surname
+            && editUserEmailTextBox.Text == user.Email
+            && editUserPositionTextBox.Text == user.Position
+            && editUserHierarchyTextBox.Text == user.Hierarchy.ToString()
+            && editUserAddingUsersCheckBox.IsChecked == user.CanAddUsers
+            && editUserDeleteUsersCheckBox.IsChecked == user.CanDeleteUsers
+            && editUserEditingUsersCheckBox.IsChecked == user.CanEditUsers)
+            {
+                MessageBox.Show("You haven't changed any value.");
+                return;
+            }
         }
     }
 }
