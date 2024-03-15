@@ -85,7 +85,7 @@ namespace MagazineManager
                         {
                             if(UserManagement.DeleteUser(user.Login))
                             {
-                                MessageBox.Show("Użytkownik został usunięty.");
+                                MessageBox.Show("User has been removed.");
                                 userListBox.ItemsSource = null;
                                 userListBox.ItemsSource = UsersCollection.GetUsers();
                             }
