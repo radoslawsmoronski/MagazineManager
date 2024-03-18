@@ -117,6 +117,56 @@ namespace MagazineManager
 
             return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
+
+        public static bool EditUserAllData(Dictionary<string, string> valuesToChange)
+        {
+            if (!isLoginExist(valuesToChange["Login"])) return false;
+
+            int userId = GetUserId(valuesToChange["Login"]);
+
+            string queryUsers = @"
+                UPDATE Users
+                SET Login = @newLogin,
+                    Name = @newName,
+                    Surname = @newSurname,
+                    Email = @newEmail
+                WHERE UserId = @userId;
+            ";
+
+            string queryPermissions = @"
+                  UPDATE UsersPermissions
+                  SET Position = @newPosition,
+                      Hierarchy = @newHierarchy,
+                      CanAddUsers = @newCanAddUsers,
+                      CanDeleteUsers = @newCanDeleteUsers,
+                      CanEditUsers = @newCanEditUsers
+                  WHERE UserId = @userId;
+            ";
+
+            var valuesToQueryUsers = new (string, dynamic)[] //Parametres
+            {
+                ("@newLogin", valuesToChange["Login"]),
+                ("@newName", valuesToChange["Name"]),
+                ("@newSurname", valuesToChange["Surname"]),
+                ("@newEmail", valuesToChange["Email"]),
+                ("@userId", userId)
+            };
+
+            var valuesToQueryPermissions = new (string, dynamic)[] //Parametres
+            {
+                ("@newPosition", valuesToChange["Position"]),
+                ("@newHierarchy", valuesToChange["Hierarchy"]),
+                ("@newCanAddUsers", valuesToChange["CanAddUsers"]),
+                ("@newCanDeleteUsers", valuesToChange["CanDeleteUsers"]),
+                ("@newCanEditUsers", valuesToChange["CanEditUsers"]),
+                ("@userId", userId)
+            };
+
+
+            return DatabaseManager.ExecuteSqlStatement(queryUsers, valuesToQueryUsers)
+                && DatabaseManager.ExecuteSqlStatement(queryPermissions, valuesToQueryPermissions);
+
+        }
         public static bool isLoginExist(string login)
         {
             string query = "SELECT count(*) FROM Users WHERE Login = @Login;";

@@ -21,6 +21,9 @@ namespace MagazineManager
     /// </summary>
     public partial class AddUserWindow : Window
     {
+        public delegate void AccountCreatedEventHandler(object sender, EventArgs e);
+        public event AccountCreatedEventHandler OnAccountCreatedEvent;
+
         public AddUserWindow()
         {
             InitializeComponent();
@@ -73,12 +76,20 @@ namespace MagazineManager
             if(UserManagement.AddUser(login, password, name, surname, email, position, hierarchy, permissions))
             {
                 MessageBox.Show("The user has been added succesfully!");
+                NewAccountCreatedEvent();
             }
             else
             {
                 MessageBox.Show("The data are/is wrong!");
             }
           
+        }
+        protected virtual void NewAccountCreatedEvent()
+        {
+            if (OnAccountCreatedEvent != null)
+            {
+                OnAccountCreatedEvent(this, EventArgs.Empty);
+            }
         }
     }
 }

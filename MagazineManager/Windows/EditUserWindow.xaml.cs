@@ -19,6 +19,9 @@ namespace MagazineManager
     /// </summary>
     public partial class EditUserWindow : Window
     {
+        public delegate void AccountEditedEventHandler(object sender, EventArgs e);
+        public event AccountEditedEventHandler OnAccountEditedEvent;
+
         User user = null;
         public EditUserWindow(User user_)
         {
@@ -75,7 +78,31 @@ namespace MagazineManager
             }
             else
             {
+                var valuesToQuery = new Dictionary<string, string>
+                {
+                    { "Login", editUserLoginTextBox.Text.ToString() },
+                    { "Name", editUserNameTextBox.Text.ToString() },
+                    { "Surname", editUserSurnameTextBox.Text.ToString() },
+                    { "Email", editUserEmailTextBox.Text.ToString() },
+                    { "Position", editUserPositionTextBox.Text.ToString() },
+                    { "Hierarchy", editUserHierarchyTextBox.Text.ToString() },
+                    { "CanAddUsers", editUserAddingUsersCheckBox.IsChecked.ToString() },
+                    { "CanDeleteUsers", editUserDeleteUsersCheckBox.IsChecked.ToString() },
+                    { "CanEditUsers", editUserEditingUsersCheckBox.IsChecked.ToString() }
+                };
+
+                UserManagement.EditUserAllData(valuesToQuery);
+
                 MessageBox.Show("User has been changed.");
+                AccountEditedEvent();
+            }
+        }
+
+        protected virtual void AccountEditedEvent()
+        {
+            if (OnAccountEditedEvent != null)
+            {
+                OnAccountEditedEvent(this, EventArgs.Empty);
             }
         }
     }

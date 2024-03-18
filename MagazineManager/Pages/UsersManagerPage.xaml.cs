@@ -32,6 +32,13 @@ namespace MagazineManager
             userListBox.ItemsSource = UsersCollection.GetUsers();
         }
 
+        public void refreshPage()
+        {
+            UsersCollection.RefreshUsers();
+            userListBox.ItemsSource = null;
+            userListBox.ItemsSource = UsersCollection.GetUsers();
+        }
+
         private void editUserButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button clickedButton && clickedButton.Tag != null)
@@ -51,6 +58,7 @@ namespace MagazineManager
                         }
 
                         editUserWindow = new EditUserWindow(user);
+                        editUserWindow.OnAccountEditedEvent += OnUserEditedAccount;
 
                         editUserWindow.Show();
                     }
@@ -169,8 +177,19 @@ namespace MagazineManager
             }
 
             addUserWindow = new AddUserWindow();
+            addUserWindow.OnAccountCreatedEvent += OnUserAddedAccount;
 
             addUserWindow.Show();
+        }
+
+        private void OnUserAddedAccount(object sender, EventArgs e)
+        {
+            refreshPage();
+        }
+
+        private void OnUserEditedAccount(object sender, EventArgs e)
+        {
+            refreshPage();
         }
     }
 }

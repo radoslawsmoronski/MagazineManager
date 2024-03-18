@@ -35,6 +35,7 @@ namespace MagazineManager
         {
             if (sender == usersManagerButton)
             {
+                usersManagerPage.refreshPage();
                 settingsFrame.Navigate(usersManagerPage);
             }
         }

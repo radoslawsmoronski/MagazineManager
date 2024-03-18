@@ -82,4 +82,19 @@ public static class UsersCollection
         return false;
     }
 
+    public static bool RemoveAllUsersFromCollection()
+    {
+        users.Clear();
+
+        return (users.Count == 0);
+    }
+
+    public static void RefreshUsers()
+    {
+        if(RemoveAllUsersFromCollection())
+        {
+            LoadUsersFromDatabase();
+        }
+    }
+
 }
