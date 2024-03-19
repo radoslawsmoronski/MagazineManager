@@ -25,4 +25,22 @@
       for example. addUsers-s 1, addUsers-s or addUsers-s 874
     </long-description>
   </command>
+  <command name="clear">
+    <short-description>Command to clear consolde of the CmdDeveloperTool</short-description>
+    <long-description>
+      [Description] Command to clear consolde of the CmdDeveloperTool
+
+      [Construction] clear
+
+    </long-description>
+  </command>
+  <command name="exit">
+    <short-description>Command to exit the CmdDeveloperTool</short-description>
+    <long-description>
+      [Description] Command to exit the CmdDeveloperTool
+
+      [Construction] exit
+
+    </long-description>
+  </command>
 </commands>
