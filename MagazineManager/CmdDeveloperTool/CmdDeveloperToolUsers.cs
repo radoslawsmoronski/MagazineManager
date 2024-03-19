@@ -70,6 +70,56 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
         }
 
+        public static void addRandomUser(string fullCommand)
+        {
+            string[] commandParts = fullCommand.Split(' ');
+
+            int amount = 1;
+
+            if (commandParts.Length == 2)
+            {
+                if (int.TryParse(commandParts[1], out int number))
+                {
+                    if(number > 100)
+                    {
+                        if (!confirmationAnswer("Are you sure you want to create more than 100 accounts?")) return;     
+                    }
+
+                    amount = number;
+                }
+                else
+                {
+                    Console.WriteLine("   [addUser-r]: Argument is not a number.");
+                    return;
+                }
+            }
+
+            for (int i = 0; i <= amount; i++)
+            {
+                string login = GetRandomLogin();
+                SecureString password = PasswordManager.ConvertToSecureString("qwerty");
+                string name = GetRandomName();
+                string surname = GetRandomSurname();
+                string email = name + surname + "@email.com";
+                string position = GetRandomPosition();
+                int hierarchy = 10;
+                bool[] permissions = new bool[3];
+                permissions[0] = false;
+                permissions[1] = false;
+                permissions[2] = false;
+
+
+
+                if (!UserManagement.AddUser(login, password, name, surname, email, position, hierarchy, permissions))
+                {
+                    Console.WriteLine($"   [addUser-r]: The account {i} has been not created.");
+                }
+            }
+
+            Console.WriteLine($"   [addUser-r]: {amount} account/s has been created.");
+
+        }
+
         private static string GetRandomName()
         {
             Random random = new Random();
@@ -97,6 +147,48 @@ namespace MagazineManager.CmdDeveloperToolNS
             return positions[randomNumber];
         }
 
+        private static string GetRandomLogin()
+        {
+            Random random = new Random();
+
+            string possibleCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            string login;
+
+            while(true)
+            {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < 10; i++)
+                {
+                    int index = random.Next(possibleCharacters.Length);
+                    builder.Append(possibleCharacters[index]);
+                }
+
+                string randomString = builder.ToString();
+
+                if (!UserManagement.isLoginExist(randomString))
+                {
+                    login = randomString;
+                    break;
+                }
+            }
+
+
+            return login;
+        }
+
+        private static bool confirmationAnswer(string answer)
+        {
+            Console.WriteLine(
+            $"   {answer}\n" +
+            "   Write   Yes   to confirmation...");
+
+            string confirmation = Console.ReadLine().ToString();
+            if (confirmation == "Yes") return true;
+
+            Console.WriteLine("   You didn't accept.");
+            return false;
+        }
 
     }
 }
