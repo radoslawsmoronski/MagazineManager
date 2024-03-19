@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Xml.Linq;
+using System.Threading;
 
 namespace MagazineManager.CmdDeveloperToolNS
 {
@@ -20,6 +21,12 @@ namespace MagazineManager.CmdDeveloperToolNS
         private bool stillUse = true;   
 
         public CmdDeveloperTool()
+        {
+            Thread consoleThread = new Thread(openCmdDevelopterTool);
+            consoleThread.Start();
+        }
+
+        public void openCmdDevelopterTool()
         {
             AllocConsole(); //Support Console
 

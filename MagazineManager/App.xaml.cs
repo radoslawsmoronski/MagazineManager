@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using MagazineManager.CmdDeveloperToolNS;
@@ -23,6 +24,9 @@ namespace MagazineManager
         {
             base.OnStartup(e);
 
+            CmdDeveloperTool cmdDeveloper = new CmdDeveloperTool();
+
+
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
 
@@ -32,7 +36,6 @@ namespace MagazineManager
             loginWindow.LoginEvent += OnUserLoggedIn;
             loginWindow.Closed += OnWindowClosed;
 
-            CmdDeveloperTool cmdDeveloper = new CmdDeveloperTool();
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
