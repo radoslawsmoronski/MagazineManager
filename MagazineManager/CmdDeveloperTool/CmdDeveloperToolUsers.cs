@@ -9,6 +9,24 @@ namespace MagazineManager.CmdDeveloperToolNS
 {
     public static class CmdDeveloperToolUsers
     {
+        private static string[] names = {
+            "Adam", "Anna", "Michał", "Karolina", "Tomasz",
+            "Magdalena", "Kamil", "Monika", "Piotr", "Patrycja",
+            "Łukasz", "Kinga", "Krzysztof", "Natalia", "Marcin",
+            "Justyna", "Bartosz", "Agata", "Mateusz", "Aleksandra"};
+
+        private static string[] surnames = {
+            "Kowalski", "Nowak", "Wiśniewski", "Wójcik", "Kowalczyk",
+            "Kamiński", "Lewandowski", "Zielińska", "Szymański", "Woźniak",
+            "Dąbrowski", "Kozłowski", "Jankowski", "Mazur", "Wojciechowski",
+            "Kwiatkowski", "Kaczmarek", "Majewski", "Grabowski", "Olszewski"};
+
+        private static string[] positions = {
+            "Storekeeper", "Warehouse Manager", "Production Worker", "Machine Operator", "Logistics Specialist",
+            "Cleaner", "Engineer", "Sales Manager", "Accountant", "IT Administrator",
+            "Technician", "Quality Assurance Specialist", "Production Supervisor", "Financial Analyst", "Customer Advisor",
+            "HR Manager", "Marketing Specialist", "Graphic Designer", "Office Clerk", "Distributor"};
+
         public static void addSimpleUser(string fullCommand)
         {
             string[] commandParts = fullCommand.Split(' ');
@@ -34,10 +52,10 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
 
             SecureString password = PasswordManager.ConvertToSecureString(commandParts[2]);
-            string name = "[Sample name]";
-            string surname = "[Sample surname]";
-            string email = "[Sample email]";
-            string position = "[Sample Position]";
+            string name = GetRandomName();
+            string surname = GetRandomSurname();
+            string email = name+surname+"@email.com";
+            string position = GetRandomPosition();
             int hierarchy = 10;
             bool[] permissions = new bool[3];
             permissions[0] = false;
@@ -51,5 +69,34 @@ namespace MagazineManager.CmdDeveloperToolNS
                 Console.WriteLine("   [addUser-s]: The account has been created.");
             }
         }
+
+        private static string GetRandomName()
+        {
+            Random random = new Random();
+
+            int randomNumber = random.Next(0, 19 + 1);
+
+            return names[randomNumber];
+        }
+
+        private static string GetRandomSurname()
+        {
+            Random random = new Random();
+
+            int randomNumber = random.Next(0, 19 + 1);
+
+            return surnames[randomNumber];
+        }
+
+        private static string GetRandomPosition()
+        {
+            Random random = new Random();
+
+            int randomNumber = random.Next(0, 19 + 1);
+
+            return positions[randomNumber];
+        }
+
+
     }
 }
