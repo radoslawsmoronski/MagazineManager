@@ -15,9 +15,6 @@ namespace MagazineManager
     /// </summary>
     public partial class App : Application
     {
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")] //Support Console
-        private static extern bool AllocConsole(); //Support Console
-
         private LoginWindow loginWindow = null;
         private MainWindow mainWindow = null;
 
@@ -27,8 +24,6 @@ namespace MagazineManager
 
             DatabaseManager.CreateConnectionString();
             DatabaseManager.ConnectionTest();
-
-            //AllocConsole(); //Support Console
 
             loginWindow = new LoginWindow();
             loginWindow.Show();
