@@ -218,9 +218,6 @@
     <Resource Include="Images\search-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CmdDeveloperTool\helpCommand.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="CmdDeveloperTool\helpCommand.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

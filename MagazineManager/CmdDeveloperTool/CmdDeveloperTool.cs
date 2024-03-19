@@ -104,7 +104,7 @@ namespace MagazineManager.CmdDeveloperToolNS
                         {
                             string longDescription = (string)commandElement.Element("long-description");
 
-                            Console.WriteLine($"   [help] {commandName} - {longDescription}");
+                            Console.WriteLine($"   [help] {commandName} - Command Details help information\n{longDescription}");
 
                             return;
                         }

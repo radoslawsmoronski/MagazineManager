@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <commands>
   <command name="addUser-s">
-    <short-description>example</short-description>
-    <long-description>example</long-description>
-  </command>
-  <command name="addUser-s">
-    <short-description>example</short-description>
-    <long-description>example</long-description>
+    <short-description>Command to quickly add a user, just login and password,the rest of the information will be generated.</short-description>
+    <long-description>
+      [Description] Command to quickly add a user, just login and password, the rest of the information will be generated.
+
+      [Construction] addUser-s {login} {password}
+
+                    {login} -> string
+                    {password} -> string
+
+                    for example. addUsers-s admin 1234
+    </long-description>
   </command>
 </commands>
