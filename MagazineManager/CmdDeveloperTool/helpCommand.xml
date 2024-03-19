@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command name="addUser-s">
+    <short-description>example</short-description>
+    <long-description>example</long-description>
+  </command>
+  <command name="addUser-s">
+    <short-description>example</short-description>
+    <long-description>example</long-description>
+  </command>
+</commands>
