@@ -31,7 +31,7 @@ namespace MagazineManager
             loginWindow.LoginEvent += OnUserLoggedIn;
             loginWindow.Closed += OnWindowClosed;
 
-
+            CmdDeveloperTool cmdDeveloper = new CmdDeveloperTool();
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
