@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace MagazineManager
+namespace MagazineManager.CmdDeveloperToolNS
 {
     public class CmdDeveloperTool
     {
@@ -23,10 +23,15 @@ namespace MagazineManager
 
             while (stillUse)
             {
-                string command = Console.ReadLine().ToString();
+                Console.Write("MagazineManager.CmdDeveloperTool -> ");
+                string fullCommand = Console.ReadLine().ToString();
+
+                string[] commandParts = fullCommand.Split(' ');
+                string command = commandParts[0];
 
                 switch (command)
                 {
+                    case "addUser-s": CmdDeveloperToolUsers.addSimpleUser(fullCommand); break;
                     case "exit": exit(); break;
                     default: Console.WriteLine(""); break;
                 }
@@ -54,5 +59,6 @@ namespace MagazineManager
             Console.WriteLine("   You didn't accept.");
             return false;
         }
+
     }
 }

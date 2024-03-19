@@ -92,6 +92,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CmdDeveloperTool\CmdDeveloperTool.cs" />
+    <Compile Include="CmdDeveloperTool\CmdDeveloperToolUsers.cs" />
     <Compile Include="Windows\EditUserWindow.xaml.cs">
       <DependentUpon>EditUserWindow.xaml</DependentUpon>
     </Compile>
