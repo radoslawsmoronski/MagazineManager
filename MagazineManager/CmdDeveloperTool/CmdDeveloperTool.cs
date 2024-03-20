@@ -44,7 +44,6 @@ namespace MagazineManager.CmdDeveloperToolNS
                 switch (command)
                 {
                     case "help": helpCommand(fullCommand); break;
-                    case "addUser-s": CmdDeveloperToolUsers.addSimpleUser(fullCommand); break;
                     case "addUser-a": CmdDeveloperToolUsers.addAdvancedUser(fullCommand); break;
                     case "showUser-l": CmdDeveloperToolUsers.showUserDetailsByLogin(fullCommand); break;
                     case "deleteUser-l": CmdDeveloperToolUsers.deleteUserByLogin(fullCommand); break;

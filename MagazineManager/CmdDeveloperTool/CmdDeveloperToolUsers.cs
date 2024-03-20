@@ -39,35 +39,29 @@ namespace MagazineManager.CmdDeveloperToolNS
             switch (attributes["Flag"][0])
             {
                 case "r": addRandomUser(attributes["Text"]); break;
+                case "s": addSimpleUser(attributes["Text"]); break;
             }
 
         }
 
-        public static void addSimpleUser(string fullCommand)
+        public static void addSimpleUser(List<string> text)
         {
-            string[] commandParts = fullCommand.Split(' ');
 
-            if (commandParts.Length == 1)
+            if(text.Count != 2)
             {
-                Console.WriteLine("   [addUser-s error]: Login and password have not been written.");
-                return;
-            }
-            else if (commandParts.Length == 2)
-            {
-                Console.WriteLine("   [addUser-s error]: Password has not been written.");
+                Console.WriteLine("   [addUser -s error] Wrong number of arguments.");
                 return;
             }
 
-            string command = commandParts[0];
-            string login = commandParts[1];
+            string login = text[0];
 
             if (UserManagement.isLoginExist(login))
             {
-                Console.WriteLine("   [addUser-s error]: This login is exist. You have to use another.");
+                Console.WriteLine("   [addUser -s error]: This login is exist. You have to use another.");
                 return;
             }
 
-            SecureString password = PasswordManager.ConvertToSecureString(commandParts[2]);
+            SecureString password = PasswordManager.ConvertToSecureString(text[1]);
             string name = GetRandomName();
             string surname = GetRandomSurname();
             string email = name+surname+"@email.com";
@@ -82,7 +76,7 @@ namespace MagazineManager.CmdDeveloperToolNS
 
             if (UserManagement.AddUser(login, password, name, surname, email, position, hierarchy, permissions))
             {
-                Console.WriteLine("   [addUser-s]: The account has been created.");
+                Console.WriteLine("   [addUser -s]: The account has been created.");
             }
         }
 
@@ -104,7 +98,7 @@ namespace MagazineManager.CmdDeveloperToolNS
                 }
                 else
                 {
-                    Console.WriteLine("   [addUser]: Argument is not a number.");
+                    Console.WriteLine("   [addUser -r]: Argument is not a number.");
                     return;
                 }
             }
