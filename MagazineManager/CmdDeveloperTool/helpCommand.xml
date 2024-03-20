@@ -2,9 +2,9 @@
 <commands>
   <category name="User management">
   <command name="addUser-s">
-    <short-description>Command to quickly add a user, just login and password,the rest of the information will be generated.</short-description>
+    <short-description>Command to quickly add a user, you need write just a login and password,the rest of the information will be generated.</short-description>
     <long-description>
-      [Description] Command to quickly add a user, just login and password, the rest of the information will be generated.
+      [Description] Command to quickly add a user, you need write just a login and password, the rest of the information will be generated.
 
       [Construction] addUser-s {login} {password}
 
@@ -15,7 +15,7 @@
     </long-description>
   </command>
   <command name="addUser-r">
-    <short-description>Command to quickly add a user or huge amount of users.</short-description>
+    <short-description>Command to quickly add a user or huge amount of users which then all datas will be generated.</short-description>
     <long-description>
       [Description] Command to quickly add a user or huge amount of users.
 
