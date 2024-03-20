@@ -28,6 +28,21 @@ namespace MagazineManager.CmdDeveloperToolNS
             "Technician", "Quality Assurance Specialist", "Production Supervisor", "Financial Analyst", "Customer Advisor",
             "HR Manager", "Marketing Specialist", "Graphic Designer", "Office Clerk", "Distributor"};
 
+        public static void addUser(Dictionary<string, List<string>> attributes)
+        {
+            if(attributes["Flag"].Count != 1)
+            {
+                Console.WriteLine("   [addUser error] Wrong number of flags.");
+                return;
+            }
+
+            switch (attributes["Flag"][0])
+            {
+                case "r": addRandomUser(attributes["Text"]); break;
+            }
+
+        }
+
         public static void addSimpleUser(string fullCommand)
         {
             string[] commandParts = fullCommand.Split(' ');
@@ -71,15 +86,14 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
         }
 
-        public static void addRandomUser(string fullCommand)
+        public static void addRandomUser(List<string> text)
         {
-            string[] commandParts = fullCommand.Split(' ');
 
-            int amount = 1;
+            int amount = 0;
 
-            if (commandParts.Length == 2)
+            if (text.Count == 1)
             {
-                if (int.TryParse(commandParts[1], out int number))
+                if (int.TryParse(text[0], out int number))
                 {
                     if(number > 100)
                     {
@@ -90,10 +104,16 @@ namespace MagazineManager.CmdDeveloperToolNS
                 }
                 else
                 {
-                    Console.WriteLine("   [addUser-r]: Argument is not a number.");
+                    Console.WriteLine("   [addUser]: Argument is not a number.");
                     return;
                 }
             }
+            else
+            {
+                Console.WriteLine("   [addUser -r error] Wrong number of arguments.");
+                return;
+            }
+
 
             for (int i = 0; i <= amount; i++)
             {
