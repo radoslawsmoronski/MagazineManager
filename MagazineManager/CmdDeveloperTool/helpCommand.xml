@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <commands>
+  <category name="User management">
   <command name="addUser-s">
     <short-description>Command to quickly add a user, just login and password,the rest of the information will be generated.</short-description>
     <long-description>
@@ -25,6 +26,8 @@
       for example. addUsers-s 1, addUsers-s or addUsers-s 874
     </long-description>
   </command>
+</category>
+<category name="Console management">
   <command name="clear">
     <short-description>Command to clear consolde of the CmdDeveloperTool</short-description>
     <long-description>
@@ -43,4 +46,5 @@
 
     </long-description>
   </command>
+</category>
 </commands>

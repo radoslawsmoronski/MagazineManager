@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Threading;
 using System.Data;
+using System.Windows.Controls;
 
 namespace MagazineManager.CmdDeveloperToolNS
 {
@@ -89,17 +90,26 @@ namespace MagazineManager.CmdDeveloperToolNS
                 {
                     Console.WriteLine("   [help] Commands lits:");
 
-                    var commands = from command in doc.Descendants("command")
-                                   select new
-                                   {
-                                       Name = command.Attribute("name").Value,
-                                       SDescription = command.Element("short-description").Value
-                                   };
+                    var categories = from category in doc.Descendants("category")
+                                     select new
+                                     {
+                                         Name = category.Attribute("name").Value,
+                                         Commands = from command in category.Descendants("command")
+                                                    select new
+                                                    {
+                                                        Name = command.Attribute("name").Value,
+                                                        SDescription = command.Element("short-description").Value
+                                                    }
+                                     };
 
-                    foreach (var command in commands)
+                    foreach (var category in categories)
                     {
+                        Console.WriteLine($"\n   {category.Name} commands");
 
-                        Console.WriteLine($"   {command.Name} - {command.SDescription}");
+                        foreach (var command in category.Commands)
+                        {
+                            Console.WriteLine($"   {command.Name} - {command.SDescription}");
+                        }
                     }
 
                     Console.WriteLine(
