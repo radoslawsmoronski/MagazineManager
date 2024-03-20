@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Threading;
 using System.Data;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
 
 namespace MagazineManager.CmdDeveloperToolNS
 {
@@ -53,6 +54,31 @@ namespace MagazineManager.CmdDeveloperToolNS
                     default: Console.WriteLine(""); break;
                 }
             }
+        }
+
+        private List<string>[] getCommandAttributes(string fullCommand)
+        {
+            string pattern = @"(?:(?<=^|\s)'([^']+)'|(?<!'[^']*)-(\S+))";
+
+            MatchCollection commandAttributes = Regex.Matches(fullCommand, pattern);
+
+            List<string>[] flagText = new List<string>[2];
+            flagText[0] = new List<string>();
+            flagText[1] = new List<string>();
+
+            foreach (Match match in commandAttributes)
+            {
+                if (match.Groups[1].Success)
+                {
+                    flagText[0].Add(match.Groups[1].Value);
+                }
+                else if (match.Groups[2].Success)
+                {
+                    flagText[1].Add(match.Groups[2].Value);
+                }
+            }
+
+            return flagText;
         }
 
         private void exit()
