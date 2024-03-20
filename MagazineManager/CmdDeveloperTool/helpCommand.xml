@@ -49,6 +49,18 @@
       for example. addUsers-a 'login' 'password' 'name' 'surname' 'email' 'position' '5' 'true' 'false' 'true'
     </long-description>
   </command>
+  <command name="showUser-l">
+    <short-description>Command to show details of user by provide login as a argument.</short-description>
+    <long-description>
+      [Description] Command to show details of user by provide login as a argument.
+
+      [Construction] showUser-l {login}
+
+      {login} -> string   |  text
+
+      for example. showUser-l login
+    </long-description>
+  </command>
 </category>
 <category name="Console management">
   <command name="clear">
