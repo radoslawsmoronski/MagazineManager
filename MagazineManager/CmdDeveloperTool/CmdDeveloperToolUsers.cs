@@ -175,6 +175,28 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
         }
 
+        public static void deleteUserByLogin(string fullCommand)
+        {
+            string[] commandParts = fullCommand.Split(' ');
+
+            if (commandParts.Length == 1)
+            {
+                Console.WriteLine("   [deleteUser-l error]: You did not provide a login.");
+                return;
+            }
+
+            string login = commandParts[1];
+
+            if (UserManagement.DeleteUser(login))
+            {
+                Console.WriteLine($"   [deleteUser-l]: User {login} has been deleted.");
+            }
+            else
+            {
+                Console.WriteLine($"   [deleteUser-l]: User {login} doesn't exist.");
+            }
+        }
+
         public static void showUserDetailsByLogin(string fullCommand)
         {
             string[] commandParts = fullCommand.Split(' ');
@@ -208,7 +230,6 @@ namespace MagazineManager.CmdDeveloperToolNS
                 $"\n   Can Add User: {user.CanAddUsers}" +
                 $"\n   Can Delete User: {user.CanDeleteUsers}" +
                 $"\n   Can Edit User: {user.CanEditUsers}");
-
 
         }
 
