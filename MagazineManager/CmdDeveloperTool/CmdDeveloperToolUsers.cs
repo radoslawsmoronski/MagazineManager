@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MagazineManager.CmdDeveloperToolNS
@@ -118,6 +119,60 @@ namespace MagazineManager.CmdDeveloperToolNS
 
             Console.WriteLine($"   [addUser-r]: {amount} account/s has been created.");
 
+        }
+
+        public static void addAdvancedUser(string fullCommand)
+        {
+            string pattern = @"'([^']+)'";
+
+            MatchCollection commandAttributes = Regex.Matches(fullCommand, pattern);
+
+            if (commandAttributes.Count != 10)
+            {
+                Console.WriteLine("   [addUser-s error]: Invalid number of attributes provided.");
+                return;
+            }
+
+            string login = commandAttributes[0].Groups[1].Value;
+            SecureString password = PasswordManager.ConvertToSecureString(commandAttributes[1].Groups[1].Value);
+            string name = commandAttributes[2].Groups[1].Value;
+            string surname = commandAttributes[3].Groups[1].Value;
+            string email = commandAttributes[4].Groups[1].Value;
+            string position = commandAttributes[5].Groups[1].Value;
+            int hierarchy;
+            bool[] permissions = new bool[3];
+
+            if (!int.TryParse(commandAttributes[6].Groups[1].Value, out hierarchy))
+            {
+                Console.WriteLine("   [addUser-s error]: Hierarchy must be an integer.");
+                return;
+            }
+
+            permissions[0] = commandAttributes[7].Groups[1].Value == "true";
+            permissions[1] = commandAttributes[8].Groups[1].Value == "true";
+            permissions[2] = commandAttributes[9].Groups[1].Value == "true";
+
+            try
+            {
+                if (UserManagement.isLoginExist(login))
+                {
+                    Console.WriteLine("   [addUser-s error]: This login already exists. You have to use another.");
+                    return;
+                }
+
+                if (UserManagement.AddUser(login, password, name, surname, email, position, hierarchy, permissions))
+                {
+                    Console.WriteLine("   [addUser-s]: The account has been created.");
+                }
+                else
+                {
+                    Console.WriteLine("   [addUser-s error]: Failed to create the account.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"   [addUser-s error]: {ex.Message}");
+            }
         }
 
         private static string GetRandomName()

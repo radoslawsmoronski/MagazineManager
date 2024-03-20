@@ -45,6 +45,7 @@ namespace MagazineManager.CmdDeveloperToolNS
                     case "help": helpCommand(fullCommand); break;
                     case "addUser-s": CmdDeveloperToolUsers.addSimpleUser(fullCommand); break;
                     case "addUser-r": CmdDeveloperToolUsers.addRandomUser(fullCommand); break;
+                    case "addUser-a": CmdDeveloperToolUsers.addAdvancedUser(fullCommand); break;
                     case "clear": Console.Clear(); break;
                     case "exit": exit(); break;
                     default: Console.WriteLine(""); break;
