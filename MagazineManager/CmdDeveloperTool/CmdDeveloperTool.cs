@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Xml.Linq;
 using System.Threading;
+using System.Data;
 
 namespace MagazineManager.CmdDeveloperToolNS
 {
@@ -88,14 +89,17 @@ namespace MagazineManager.CmdDeveloperToolNS
                 {
                     Console.WriteLine("   [help] Commands lits:");
 
-                    foreach (XElement commandElement in doc.Descendants("command"))
+                    var commands = from command in doc.Descendants("command")
+                                   select new
+                                   {
+                                       Name = command.Attribute("name").Value,
+                                       SDescription = command.Element("short-description").Value
+                                   };
+
+                    foreach (var command in commands)
                     {
 
-                        string commandName = (string)commandElement.Attribute("name");
-
-                        string shortDescription = (string)commandElement.Element("short-description");
-
-                        Console.WriteLine($"   {commandName} - {shortDescription}");
+                        Console.WriteLine($"   {command.Name} - {command.SDescription}");
                     }
 
                     Console.WriteLine(
@@ -105,19 +109,16 @@ namespace MagazineManager.CmdDeveloperToolNS
                 }
                 else
                 {
-                    foreach (XElement commandElement in doc.Descendants("command"))
-                    {
-                        string commandName = (string)commandElement.Attribute("name");
+                    var commandDetails = (from command in doc.Descendants("command")
+                                         where command.Attribute("name").Value == commandParts[1]
+                                         select new
+                                         {
+                                             Name = command.Attribute("name").Value,
+                                             LDescription = command.Element("long-description").Value
+                                         }).FirstOrDefault();
 
-                        if (commandName == commandParts[1])
-                        {
-                            string longDescription = (string)commandElement.Element("long-description");
 
-                            Console.WriteLine($"   [help] {commandName} - Command Details help information\n{longDescription}");
-
-                            return;
-                        }
-                    }
+                    Console.WriteLine($"   [help] {commandDetails.Name} - Command Details help information\n{commandDetails.LDescription}");
 
                     Console.WriteLine("   [help error]: This command doesn't exist.");
                 }
