@@ -175,6 +175,43 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
         }
 
+        public static void showUserDetailsByLogin(string fullCommand)
+        {
+            string[] commandParts = fullCommand.Split(' ');
+
+            if (commandParts.Length == 1)
+            {
+                Console.WriteLine("   [showUser-l error]: You did not provide a login.");
+                return;
+            }
+
+            string login = commandParts[1];
+
+            if (!UserManagement.isLoginExist(login))
+            {
+                Console.WriteLine($"   [showUser-l error]: User {login} doesn't exist.");
+                return;
+            }
+
+            UsersCollection.RefreshUsers();
+
+            User user = UsersCollection.GetUserFromLogin(login);
+
+            Console.WriteLine(
+                $"   [User {login} details]" +
+                $"\n   Login: {login}" +
+                $"\n   Name: {user.Name}" +
+                $"\n   Surname: {user.Surname}" +
+                $"\n   Email: {user.Email}" +
+                $"\n   Position: {user.Position}" +
+                $"\n   Hierarchy: {user.Hierarchy}" +
+                $"\n   Can Add User: {user.CanAddUsers}" +
+                $"\n   Can Delete User: {user.CanDeleteUsers}" +
+                $"\n   Can Edit User: {user.CanEditUsers}");
+
+
+        }
+
         private static string GetRandomName()
         {
             Random random = new Random();
