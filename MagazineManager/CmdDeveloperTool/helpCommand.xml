@@ -8,8 +8,8 @@
 
       [Construction] addUser-s {login} {password}
 
-                    {login} -> string
-                    {password} -> string
+                    {login} -> string   |  text
+                    {password} -> string   |  text
 
                     for example. addUsers-s admin 1234
     </long-description>
@@ -21,9 +21,32 @@
 
       [Construction] addUser-r {amount of users}
 
-      {amount of users} -> int | Argument is not necessarily, without that developer tool will create 1 user.
+      {amount of users} -> int  |   Argument is not necessarily, without that developer tool will create 1 user.
 
       for example. addUsers-s 1, addUsers-s or addUsers-s 874
+    </long-description>
+  </command>
+  <command name="addUser-a">
+    <short-description>Command to add a user where all user parameters must be provided.</short-description>
+    <long-description>
+      [Description] Command to add a user where all user parameters must be provided.
+
+      [Construction] addUser-a '{login}' '{password}' '{name}' '{surname}' '{email}' '{position}' '{hierarchy}' '{canAddUser}' '{canDeleteUser}' '{canEditUser}'
+
+      {login} -> string   |  'text'
+      {password} -> string  |  'text'
+      {name} -> string  |   'text'
+      {surname} -> string   |   'text'
+      {email} -> string   |  'text'
+      {position} -> string   |  'text'
+      {hierarchy} -> int  |   'number'
+      {canAddUser} -> bool   |  'true' or 'false'
+      {canDeleteUser} -> bool  |   'true' or 'false'
+      {canEditUser} -> bool  |   'true' or 'false'
+
+      To add an argument, you must enter it between '{argument}' characters.
+
+      for example. addUsers-a 'login' 'password' 'name' 'surname' 'email' 'position' '5' 'true' 'false' 'true'
     </long-description>
   </command>
 </category>
