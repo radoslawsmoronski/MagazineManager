@@ -46,7 +46,7 @@ namespace MagazineManager.CmdDeveloperToolNS
 
         }
 
-        public static void addSimpleUser(List<string> text)
+        private static void addSimpleUser(List<string> text)
         {
             if(text.Count != 2)
             {
@@ -81,7 +81,7 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
         }
 
-        public static void addRandomUser(List<string> text)
+        private static void addRandomUser(List<string> text)
         {
 
             int amount = 0;
@@ -144,7 +144,7 @@ namespace MagazineManager.CmdDeveloperToolNS
 
         }
 
-        public static void addAdvancedUser(List<string> text)
+        private static void addAdvancedUser(List<string> text)
         {
 
             if (text.Count != 10)
