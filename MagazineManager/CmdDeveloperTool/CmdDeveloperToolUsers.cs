@@ -85,6 +85,7 @@ namespace MagazineManager.CmdDeveloperToolNS
         {
 
             int amount = 0;
+            string login = "";
 
             if (text.Count == 1)
             {
@@ -112,7 +113,7 @@ namespace MagazineManager.CmdDeveloperToolNS
 
             for (int i = 0; i <= amount; i++)
             {
-                string login = GetRandomLogin();
+                login = GetRandomLogin();
                 SecureString password = PasswordManager.ConvertToSecureString("qwerty");
                 string name = GetRandomName();
                 string surname = GetRandomSurname();
@@ -132,7 +133,14 @@ namespace MagazineManager.CmdDeveloperToolNS
                 }
             }
 
-            Console.WriteLine($"   [addUser-r]: {amount} account/s has been created.");
+            if(amount == 1)
+            {
+                Console.WriteLine($"   [addUser-r]: {login} account has been created.");
+            }
+            else
+            {
+                Console.WriteLine($"   [addUser-r]: {amount} accounts has been created.");
+            }
 
         }
 
@@ -208,7 +216,6 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
 
             string login = attributes["Text"][0];
-            Console.WriteLine(login);
 
             if (!UserManagement.isLoginExist(login))
             {
@@ -223,9 +230,9 @@ namespace MagazineManager.CmdDeveloperToolNS
             userDataAcronyms.Add("e", "Email");
             userDataAcronyms.Add("p", "Position");
             userDataAcronyms.Add("h", "Hierarchy");
-            userDataAcronyms.Add("cau", "CanAddUser");
-            userDataAcronyms.Add("cdu", "CanDeleteUser");
-            userDataAcronyms.Add("ceu", "CanEditUser");
+            userDataAcronyms.Add("cau", "CanAddUsers");
+            userDataAcronyms.Add("cdu", "CanDeleteUsers");
+            userDataAcronyms.Add("ceu", "CanEditUsers");
 
             foreach (string flag in attributes["Flag"]) //Checking are flags are not the same more than one
             {
@@ -293,7 +300,7 @@ namespace MagazineManager.CmdDeveloperToolNS
                     }
                     else if (attributes["Flag"][i] == "cau" || attributes["Flag"][i] == "cdu" || attributes["Flag"][i] == "ceu")
                     {
-                        editComponentValue = attributes["Text"][i] == "true";
+                        editComponentValue = attributes["Text"][i+1] == "true";
                     }
 
                     type = "Permissions";

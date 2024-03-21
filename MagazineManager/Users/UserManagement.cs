@@ -100,6 +100,7 @@ namespace MagazineManager
             if ((editComponent.ToLower() == "userid" || !isLoginExist(login))
                 && (type != "Account" || type != "Permissions")) return false;
 
+            int userId = GetUserId(login);
 
             Dictionary<string, string> editTypeConverter = new Dictionary<string, string>
             {
@@ -107,12 +108,12 @@ namespace MagazineManager
                 { "Permissions", "UsersPermissions" }
             };
 
-            string query = $"UPDATE {editTypeConverter[type]} SET {editComponent} = @Value WHERE Login = @Login;";
+            string query = $"UPDATE {editTypeConverter[type]} SET {editComponent} = @Value WHERE UserId = @Id;";
 
             var valuesToQuery = new (string, dynamic)[] //Parametres
             {
                 ("@Value", value.ToString()),
-                ("@Login", login)
+                ("@Id", userId)
             };
 
            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
@@ -173,6 +174,18 @@ namespace MagazineManager
             var valuesToQuery = new (string, dynamic)[] //Parameters
             {
                 ("@Login", login)
+            };
+
+            return (int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0])) > 0;
+        }
+
+        public static bool isUserIdExist(int userId)
+        {
+            string query = "SELECT count(*) FROM Users WHERE UserId = @UserId;";
+
+            var valuesToQuery = new (string, dynamic)[] //Parameters
+            {
+                ("@UserId", userId)
             };
 
             return (int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0])) > 0;
