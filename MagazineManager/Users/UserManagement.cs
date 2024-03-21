@@ -115,9 +115,8 @@ namespace MagazineManager
                 ("@Login", login)
             };
 
-            return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
+           return DatabaseManager.ExecuteSqlStatement(query, valuesToQuery);
         }
-
         public static bool EditUserAllData(Dictionary<string, string> valuesToChange)
         {
             if (!isLoginExist(valuesToChange["Login"])) return false;
@@ -178,7 +177,6 @@ namespace MagazineManager
 
             return (int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0])) > 0;
         }
-
         public static int GetUserId(string login)
         {
             string query = "SELECT UserId FROM Users WHERE Login = @Login;";
@@ -190,7 +188,6 @@ namespace MagazineManager
 
             return int.Parse(DatabaseManager.GetSqlQueryResults(query, valuesToQuery)[0][0]);
         }
-
         public static List<string[]> GetUsersBasicDetails()
         {
             string query = "SELECT u.UserId, u.Name, u.Surname, up.Position FROM Users u" +

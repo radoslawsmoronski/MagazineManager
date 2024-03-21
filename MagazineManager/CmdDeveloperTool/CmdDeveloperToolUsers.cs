@@ -5,6 +5,7 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MagazineManager.CmdDeveloperToolNS
 {
@@ -47,7 +48,6 @@ namespace MagazineManager.CmdDeveloperToolNS
 
         public static void addSimpleUser(List<string> text)
         {
-
             if(text.Count != 2)
             {
                 Console.WriteLine("   [addUser -s error] Wrong number of arguments.");
@@ -185,6 +185,126 @@ namespace MagazineManager.CmdDeveloperToolNS
             {
                 Console.WriteLine($"   [addUser-a error]: {ex.Message}");
             }
+        }
+
+        public static void editUser(Dictionary<string, List<string>> attributes)
+        {
+            if (attributes["Flag"].Count < 1 || attributes["Flag"].Count > 9)
+            {
+                Console.WriteLine("   [editUser error] Wrong number of flags.");
+                return;
+            }
+
+            if (attributes["Text"].Count < 1 || attributes["Flag"].Count > 10)
+            {
+                Console.WriteLine("   [editUser error] Wrong number of attributes.");
+                return;
+            }
+
+            if (attributes["Text"].Count != attributes["Flag"].Count+1)
+            {
+                Console.WriteLine("   [editUser error] Flag numbers are not the same as attributes.");
+                return;
+            }
+
+            string login = attributes["Text"][0];
+            Console.WriteLine(login);
+
+            if (!UserManagement.isLoginExist(login))
+            {
+                Console.WriteLine("   [editUser error] This login doesn't exist.");
+                return;
+            }
+
+            Dictionary<string, string> userDataAcronyms = new Dictionary<string, string>();
+            userDataAcronyms.Add("l", "Login");
+            userDataAcronyms.Add("n", "Name");
+            userDataAcronyms.Add("s", "Surname");
+            userDataAcronyms.Add("e", "Email");
+            userDataAcronyms.Add("p", "Position");
+            userDataAcronyms.Add("h", "Hierarchy");
+            userDataAcronyms.Add("cau", "CanAddUser");
+            userDataAcronyms.Add("cdu", "CanDeleteUser");
+            userDataAcronyms.Add("ceu", "CanEditUser");
+
+            foreach (string flag in attributes["Flag"]) //Checking are flags are not the same more than one
+            {
+                int amount = 0;
+
+                foreach (string flagToCheck in attributes["Flag"])
+                {
+                    if (flag == flagToCheck) amount++;
+                }
+
+                if (amount != 1)
+                {
+                    Console.WriteLine("   [editUser error] You can not use the same flag more than one.");
+                    return;
+                }
+            }
+
+            foreach (string flag in attributes["Flag"]) //Checking are flags correct
+            {
+                int amount = 0;
+
+                foreach (KeyValuePair<string, string> check in userDataAcronyms)
+                {
+                    if (flag == check.Key) amount++;
+                }
+
+
+                if (amount == 0)
+                {
+                    Console.WriteLine("   [editUser error] You use wrong flag/s.");
+                    return;
+                }
+            }
+
+            for(int i = 0; i < attributes["Flag"].Count; i++)
+            {
+                if(attributes["Flag"][i] == "l" && UserManagement.isLoginExist(attributes["Text"][i+1]))
+                {
+                    Console.WriteLine("   [editUser error] This login already exists.");
+                    return;
+                }
+
+                string editComponent = userDataAcronyms[attributes["Flag"][i]];
+
+                bool checkIsPermissionsData = (
+                    attributes["Flag"][i] == "p"
+                    || attributes["Flag"][i] == "h"
+                    || attributes["Flag"][i] == "cau"
+                    || attributes["Flag"][i] == "cdu"
+                    || attributes["Flag"][i] == "ceu");
+
+                string type = "Account";
+                object editComponentValue = attributes["Text"][i+1];
+
+                if (checkIsPermissionsData)
+                {
+                    if (attributes["Flag"][i] == "h")
+                    {
+                        if (int.TryParse(attributes["Text"][i + 1], out int number)) editComponentValue = number;
+                        else
+                        {
+                            Console.WriteLine("   [editUser error] Hierarchy attribute is a number.");
+                            return;
+                        }
+                    }
+                    else if (attributes["Flag"][i] == "cau" || attributes["Flag"][i] == "cdu" || attributes["Flag"][i] == "ceu")
+                    {
+                        editComponentValue = attributes["Text"][i] == "true";
+                    }
+
+                    type = "Permissions";
+                }
+
+                if(UserManagement.EditUser(type, login, editComponent, editComponentValue))
+                {
+                    Console.WriteLine("   [editUser] You edited user.");
+                }
+            }
+
         }
 
         public static void deleteUserByLogin(Dictionary<string, List<string>> attributes)

@@ -47,6 +47,7 @@ namespace MagazineManager.CmdDeveloperToolNS
                     case "showUser": CmdDeveloperToolUsers.showUserDetailsByLogin(getCommandAttributes(fullCommand)); break;
                     case "deleteUser": CmdDeveloperToolUsers.deleteUserByLogin(getCommandAttributes(fullCommand)); break;
                     case "addUser": CmdDeveloperToolUsers.addUser(getCommandAttributes(fullCommand)); break;
+                    case "editUser": CmdDeveloperToolUsers.editUser(getCommandAttributes(fullCommand)); break;
                     case "clear": Console.Clear(); break;
                     case "exit": exit(); break;
                     default: Console.WriteLine(""); break;
