@@ -40,6 +40,7 @@ namespace MagazineManager.CmdDeveloperToolNS
             {
                 case "r": addRandomUser(attributes["Text"]); break;
                 case "s": addSimpleUser(attributes["Text"]); break;
+                case "a": addAdvancedUser(attributes["Text"]); break;
             }
 
         }
@@ -135,57 +136,54 @@ namespace MagazineManager.CmdDeveloperToolNS
 
         }
 
-        public static void addAdvancedUser(string fullCommand)
+        public static void addAdvancedUser(List<string> text)
         {
-            string pattern = @"'([^']+)'";
 
-            MatchCollection commandAttributes = Regex.Matches(fullCommand, pattern);
-
-            if (commandAttributes.Count != 10)
+            if (text.Count != 10)
             {
-                Console.WriteLine("   [addUser-s error]: Invalid number of attributes provided.");
+                Console.WriteLine("   [addUser -a error] Wrong number of arguments.");
                 return;
             }
 
-            string login = commandAttributes[0].Groups[1].Value;
-            SecureString password = PasswordManager.ConvertToSecureString(commandAttributes[1].Groups[1].Value);
-            string name = commandAttributes[2].Groups[1].Value;
-            string surname = commandAttributes[3].Groups[1].Value;
-            string email = commandAttributes[4].Groups[1].Value;
-            string position = commandAttributes[5].Groups[1].Value;
+            string login = text[0];
+            SecureString password = PasswordManager.ConvertToSecureString(text[1]);
+            string name = text[2];
+            string surname = text[3];
+            string email = text[4];
+            string position = text[5];
             int hierarchy;
             bool[] permissions = new bool[3];
 
-            if (!int.TryParse(commandAttributes[6].Groups[1].Value, out hierarchy))
+            if (!int.TryParse(text[6], out hierarchy))
             {
-                Console.WriteLine("   [addUser-s error]: Hierarchy must be an integer.");
+                Console.WriteLine("   [addUser-a error]: Hierarchy must be an integer.");
                 return;
             }
 
-            permissions[0] = commandAttributes[7].Groups[1].Value == "true";
-            permissions[1] = commandAttributes[8].Groups[1].Value == "true";
-            permissions[2] = commandAttributes[9].Groups[1].Value == "true";
+            permissions[0] = text[7] == "true";
+            permissions[1] = text[8] == "true";
+            permissions[2] = text[9] == "true";
 
             try
             {
                 if (UserManagement.isLoginExist(login))
                 {
-                    Console.WriteLine("   [addUser-s error]: This login already exists. You have to use another.");
+                    Console.WriteLine("   [addUser-a error]: This login already exists. You have to use another.");
                     return;
                 }
 
                 if (UserManagement.AddUser(login, password, name, surname, email, position, hierarchy, permissions))
                 {
-                    Console.WriteLine("   [addUser-s]: The account has been created.");
+                    Console.WriteLine("   [addUser-a]: The account has been created.");
                 }
                 else
                 {
-                    Console.WriteLine("   [addUser-s error]: Failed to create the account.");
+                    Console.WriteLine("   [addUser-a error]: Failed to create the account.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"   [addUser-s error]: {ex.Message}");
+                Console.WriteLine($"   [addUser-a error]: {ex.Message}");
             }
         }
 
