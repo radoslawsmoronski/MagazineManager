@@ -197,13 +197,13 @@ namespace MagazineManager.CmdDeveloperToolNS
 
         public static void editUser(Dictionary<string, List<string>> attributes)
         {
-            if (attributes["Flag"].Count < 1 || attributes["Flag"].Count > 9)
+            if (attributes["Flag"].Count < 1 || attributes["Flag"].Count > 10)
             {
                 Console.WriteLine("   [editUser error] Wrong number of flags.");
                 return;
             }
 
-            if (attributes["Text"].Count < 1 || attributes["Flag"].Count > 10)
+            if (attributes["Text"].Count < 1 || attributes["Flag"].Count > 11)
             {
                 Console.WriteLine("   [editUser error] Wrong number of attributes.");
                 return;
@@ -225,6 +225,7 @@ namespace MagazineManager.CmdDeveloperToolNS
 
             Dictionary<string, string> userDataAcronyms = new Dictionary<string, string>();
             userDataAcronyms.Add("l", "Login");
+            userDataAcronyms.Add("ps", "HashedPassword");
             userDataAcronyms.Add("n", "Name");
             userDataAcronyms.Add("s", "Surname");
             userDataAcronyms.Add("e", "Email");
@@ -304,6 +305,12 @@ namespace MagazineManager.CmdDeveloperToolNS
                     }
 
                     type = "Permissions";
+                }
+
+                if(attributes["Flag"][i] == "ps")
+                {
+                    SecureString password = PasswordManager.ConvertToSecureString(attributes["Text"][i + 1]);
+                    editComponentValue = PasswordManager.GetHashPassword(password);
                 }
 
                 if(UserManagement.EditUser(type, login, editComponent, editComponentValue))

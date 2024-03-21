@@ -45,8 +45,34 @@
        for example. addUsers-a 'login' 'password' 'name' 'surname' 'email' 'position' '5' 'true' 'false' 'true'
     </long-description>
   </command>
-      
+    
+   <command name="editUser">
+    <short-description>Command to edit users datas.</short-description>
+    <long-description>
+      [Description] Command to edit users datas.
 
+      [Construction] editUser {flag}... '{login}' '{attributes}'...
+      
+       {flag} -> This is sign of element what you want to edit.
+       '{login}' -> Login of user you want to change something.
+       '{attributes}' -> Text, number of bool to write.
+
+      [Flags]
+       -l | login
+       -ps | password
+       -n | name
+       -s | surname
+       -e | email
+       -p | position
+       -h | hierarchy
+       -cau | can add user permission
+       -cdu | can delete user permission
+       -ceu | can edit user permission
+
+      for example. editUser -l 'login' 'new login', editUser -l -ps 'login' 'new login' 'new password'
+    </long-description>
+  </command>
+      
   <command name="showUser">
     <short-description>Command to show details of user by provide login as a argument.</short-description>
     <long-description>
