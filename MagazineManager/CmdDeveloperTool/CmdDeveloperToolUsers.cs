@@ -187,39 +187,47 @@ namespace MagazineManager.CmdDeveloperToolNS
             }
         }
 
-        public static void deleteUserByLogin(string fullCommand)
+        public static void deleteUserByLogin(Dictionary<string, List<string>> attributes)
         {
-            string[] commandParts = fullCommand.Split(' ');
-
-            if (commandParts.Length == 1)
+            if (attributes["Flag"].Count > 0)
             {
-                Console.WriteLine("   [deleteUser-l error]: You did not provide a login.");
+                Console.WriteLine("   [deleteUser error] This command do not have any flags.");
                 return;
             }
 
-            string login = commandParts[1];
+            if (attributes["Text"].Count == 0)
+            {
+                Console.WriteLine("   [deleteUser error]: You did not provide a login.");
+                return;
+            }
+
+            string login = attributes["Text"][0];
 
             if (UserManagement.DeleteUser(login))
             {
-                Console.WriteLine($"   [deleteUser-l]: User {login} has been deleted.");
+                Console.WriteLine($"   [deleteUser]: User {login} has been deleted.");
             }
             else
             {
-                Console.WriteLine($"   [deleteUser-l]: User {login} doesn't exist.");
+                Console.WriteLine($"   [deleteUser]: User {login} doesn't exist.");
             }
         }
 
-        public static void showUserDetailsByLogin(string fullCommand)
+        public static void showUserDetailsByLogin(Dictionary<string, List<string>> attributes)
         {
-            string[] commandParts = fullCommand.Split(' ');
-
-            if (commandParts.Length == 1)
+            if (attributes["Flag"].Count > 0)
             {
-                Console.WriteLine("   [showUser-l error]: You did not provide a login.");
+                Console.WriteLine("   [showUser error] This command do not have any flags.");
                 return;
             }
 
-            string login = commandParts[1];
+            if (attributes["Text"].Count == 0)
+            {
+                Console.WriteLine("   [showUser error]: You did not provide a login.");
+                return;
+            }
+
+            string login = attributes["Text"][0];
 
             if (!UserManagement.isLoginExist(login))
             {

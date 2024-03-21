@@ -44,8 +44,8 @@ namespace MagazineManager.CmdDeveloperToolNS
                 switch (command)
                 {
                     case "help": helpCommand(fullCommand); break;
-                    case "showUser-l": CmdDeveloperToolUsers.showUserDetailsByLogin(fullCommand); break;
-                    case "deleteUser-l": CmdDeveloperToolUsers.deleteUserByLogin(fullCommand); break;
+                    case "showUser": CmdDeveloperToolUsers.showUserDetailsByLogin(getCommandAttributes(fullCommand)); break;
+                    case "deleteUser": CmdDeveloperToolUsers.deleteUserByLogin(getCommandAttributes(fullCommand)); break;
                     case "addUser": CmdDeveloperToolUsers.addUser(getCommandAttributes(fullCommand)); break;
                     case "clear": Console.Clear(); break;
                     case "exit": exit(); break;
